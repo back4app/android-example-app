@@ -39,7 +39,7 @@ public class VisitsActivity extends AppCompatActivity {
         final TextView description = (TextView) findViewById(R.id.description);
         final ImageView photo = (ImageView)findViewById(R.id.service_photo);
 
-        visits = new ArrayList<>();
+        /*visits = new ArrayList<>();
         visits.add(getString(R.string.visits));
         final Spinner spinner_visits = (Spinner) findViewById(R.id.visits_dropdown);
         final ArrayAdapter<String> spinner_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, visits);
@@ -49,8 +49,8 @@ public class VisitsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = parent.getItemAtPosition(position).toString();
-                if (!selected.equals(getString(R.string.visits))) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Visits");
+                if (!selected.equals(getString(R.string.other_appointments))) {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointments");
                     query.whereEqualTo("Date", selected);
                     query.setLimit(1);
                     query.findInBackground(new FindCallback<ParseObject>() {
@@ -107,7 +107,7 @@ public class VisitsActivity extends AppCompatActivity {
                     Log.d(":(", "Error");
                 }
             }
-        });
+        });*/
 
     }
 }

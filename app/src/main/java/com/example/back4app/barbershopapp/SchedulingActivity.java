@@ -40,6 +40,8 @@ public class SchedulingActivity extends AppCompatActivity {
         Parse.initialize(this);
 
         final TextView price_textview = (TextView) findViewById(R.id.price);
+        final List<ParseObject> services_objects = new ArrayList<>();
+        final List<ParseObject> professionals_schedule_objects = new ArrayList<>();
 
         final Button back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +90,8 @@ public class SchedulingActivity extends AppCompatActivity {
         query_services.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> services, ParseException e) {
                 if (e == null) {
+                    services_objects.addAll(services);
+
                     for(int i = 0; i < services.size(); i++) {
                         spinner_service_adapter.add(services.get(i).get("Type").toString());
                     }
@@ -115,28 +119,21 @@ public class SchedulingActivity extends AppCompatActivity {
                     spinner_time_adapter.notifyDataSetChanged();
                     time_list.add(getString(R.string.select_time));
 
-                    ParseQuery<ParseObject> query_service = ParseQuery.getQuery("Services");
-                    query_service.whereEqualTo("Type", selected_service);
-                    query_service.setLimit(1);
-                    query_service.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> services_info, ParseException e) {
-                            if (e == null) {
-                                //price_textview.setText(services_info.get(0).getString("Price"), TextView.BufferType.EDITABLE);
+                    for(int i = 0; i < services_objects.size(); i++) {
+                        if(services_objects.get(i).getString("Type").equals(selected_service)){
+                            price_textview.setText(services_objects.get(i).getString("Price"), TextView.BufferType.EDITABLE);
+                            List<String> professionals = new ArrayList<>();
 
-                                List<String> professionals = new ArrayList<>();
+                            professionals = services_objects.get(i).getList("Professionals");
 
-                                professionals = services_info.get(0).getList("Professionals");
-
-                                /*for(int i = 0; i < professionals.size(); i++) {
-                                    spinner_professionals_adapter.add(professionals.get(i));
-                                }
-                                spinner_professionals_adapter.notifyDataSetChanged();*/
-
-                            } else {
-                                Log.d(":(", "Error: " + e.getMessage());
+                            for(i = 0; i < professionals.size(); i++) {
+                                spinner_professionals_adapter.add(professionals.get(i));
                             }
+                            spinner_professionals_adapter.notifyDataSetChanged();
+
+                            break;
                         }
-                    });
+                    }
                 }
             }
             @Override
@@ -145,11 +142,11 @@ public class SchedulingActivity extends AppCompatActivity {
             }
         });
 
-        /*spinner_professionals.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_professionals.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
-                String selected_service = parent_service.getItemAtPosition(position_service).toString();
-                if (!selected_service.equals(R.string.select_professional)) {
+                String selected_professional = parent_service.getItemAtPosition(position_service).toString();
+                if (!selected_professional.equals(R.string.select_professional)) {
                     spinner_dates_adapter.clear();
                     spinner_dates_adapter.notifyDataSetChanged();
                     dates_list.add(getString(R.string.select_date));
@@ -159,13 +156,16 @@ public class SchedulingActivity extends AppCompatActivity {
                     time_list.add(getString(R.string.select_time));
 
                     ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
-                    query_professional_schedule.whereEqualTo("Name", spinner_professionals.getSelectedItem().toString());
+                    query_professional_schedule.whereEqualTo("Name", selected_professional);
                     query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
                             if (e == null) {
-                               for(int j = 0; j < professionals_schedule_info.size(); j++){
-                                   spinner_dates_adapter.add(professionals_schedule_info.get(j).get("Date").toString());
-                               }
+                                professionals_schedule_objects.addAll(professionals_schedule_info);
+
+                                for(int j = 0; j < professionals_schedule_info.size(); j++){
+                                    spinner_dates_adapter.add(professionals_schedule_info.get(j).get("Date").toString());
+                                }
+
                                 spinner_dates_adapter.notifyDataSetChanged();
                             } else {
                                 Log.d(":(", "Error: " + e.getMessage());
@@ -183,40 +183,33 @@ public class SchedulingActivity extends AppCompatActivity {
         spinner_dates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
-                String selected_service = parent_service.getItemAtPosition(position_service).toString();
-                if (!selected_service.equals(R.string.select_date)) {
+                String selected_date = parent_service.getItemAtPosition(position_service).toString();
+                if (!selected_date.equals(R.string.select_date)) {
                     spinner_time_adapter.clear();
                     spinner_time_adapter.notifyDataSetChanged();
                     time_list.add(getString(R.string.select_time));
 
-                    ParseQuery<ParseObject> query_time = ParseQuery.getQuery("Professionals_Schedule");
-                    query_time.whereEqualTo("Name", spinner_professionals.getSelectedItem().toString());
-                    query_time.whereEqualTo("Date", spinner_dates.getSelectedItem().toString());
-                    query_time.setLimit(1);
-                    query_time.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> schedule_info, ParseException e) {
-                            if (e == null) {
-                                List<String> times = new ArrayList<>();
+                    for(int i = 0; i < professionals_schedule_objects.size(); i++) {
+                        if(professionals_schedule_objects.get(i).getString("Date").equals(selected_date)){
+                            List<String> times = new ArrayList<>();
 
-                                times = schedule_info.get(0).getList("Times");
+                            times = professionals_schedule_objects.get(i).getList("Times");
 
-                                for(int i = 0; i < times.size(); i++) {
-                                    spinner_time_adapter.add(times.get(i));
-                                }
-                                spinner_time_adapter.notifyDataSetChanged();
-
-                            } else {
-                                Log.d(":(", "Error: " + e.getMessage());
+                            for(i = 0; i < times.size(); i++) {
+                                spinner_time_adapter.add(times.get(i));
                             }
+                            spinner_time_adapter.notifyDataSetChanged();
+
+                            break;
                         }
-                    });
+                    }
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent_service) {
                 Log.d("oh, oh...", "Error");
             }
-        });*/
+        });
 
         final Button add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {
@@ -277,7 +270,7 @@ public class SchedulingActivity extends AppCompatActivity {
                     return;
                 } else {
                     final ParseObject appointment = new ParseObject("Appointments");
-                    appointment.put("Client", ParseUser.getCurrentUser().get("Nome").toString());
+                    appointment.put("Client", ParseUser.getCurrentUser().getUsername());
                     appointment.put("Appointment_Service", spinner_service.getSelectedItem().toString());
                     appointment.put("Appointment_Professional", spinner_professionals.getSelectedItem().toString());
                     appointment.put("Appointment_Date", spinner_dates.getSelectedItem().toString());

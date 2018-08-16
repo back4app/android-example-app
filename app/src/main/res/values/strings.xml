@@ -128,4 +128,8 @@
     <!-- Scheduling -->
     <string name="scheduled_appointment">Appointment scheduled successfully!</string>
     <string name="checkout_appointment">Check out your appointment data!\nYou are able to edit it or delete it up to 24 hours before its scheduled date.</string>
+
+    <!-- Scheduled -->
+    <string name="other_appointments">Other appointments</string>
+
 </resources>
