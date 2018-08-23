@@ -28,10 +28,12 @@ import java.util.List;
 
 public class SchedulingActivity extends AppCompatActivity {
 
-    List<String> services_list;
-    List<String> professionals_list;
-    List<String> dates_list;
-    List<String> time_list;
+    List<String> services_list = new ArrayList<>();
+    List<String> professionals_list = new ArrayList<>();
+    List<String> dates_list = new ArrayList<>();
+    List<String> time_list = new ArrayList<>();
+    ParseObject alreadyScheduled;
+    List<String> new_list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class SchedulingActivity extends AppCompatActivity {
         final TextView price_textview = (TextView) findViewById(R.id.price);
         final List<ParseObject> services_objects = new ArrayList<>();
         final List<ParseObject> professionals_schedule_objects = new ArrayList<>();
+
+
 
         final Button back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +58,6 @@ public class SchedulingActivity extends AppCompatActivity {
         });
 
         // services dropdown
-        services_list = new ArrayList<>();
         services_list.add(getString(R.string.select_service));
         final Spinner spinner_service = (Spinner) findViewById(R.id.services_dropdown);
         final ArrayAdapter<String> spinner_service_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, services_list);
@@ -62,7 +65,6 @@ public class SchedulingActivity extends AppCompatActivity {
         spinner_service.setAdapter(spinner_service_adapter);
 
         // professionals dropdown
-        professionals_list = new ArrayList<>();
         professionals_list.add(getString(R.string.select_professional));
         final Spinner spinner_professionals = (Spinner) findViewById(R.id.professionals_dropdown);
         final ArrayAdapter<String> spinner_professionals_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, professionals_list);
@@ -70,7 +72,6 @@ public class SchedulingActivity extends AppCompatActivity {
         spinner_professionals.setAdapter(spinner_professionals_adapter);
 
         // dates dropdown
-        dates_list = new ArrayList<>();
         dates_list.add(getString(R.string.select_date));
         final Spinner spinner_dates = (Spinner) findViewById(R.id.dates_dropdown);
         final ArrayAdapter<String> spinner_dates_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dates_list);
@@ -78,12 +79,12 @@ public class SchedulingActivity extends AppCompatActivity {
         spinner_dates.setAdapter(spinner_dates_adapter);
 
         // time dropdown
-        time_list = new ArrayList<>();
         time_list.add(getString(R.string.select_time));
         final Spinner spinner_time = (Spinner) findViewById(R.id.time_dropdown);
         final ArrayAdapter<String> spinner_time_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, time_list);
         spinner_time_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_time.setAdapter(spinner_time_adapter);
+
 
         ParseQuery<ParseObject> query_services = ParseQuery.getQuery("Services");
         query_services.whereExists("Type");
@@ -108,22 +109,22 @@ public class SchedulingActivity extends AppCompatActivity {
                 String selected_service = parent_service.getItemAtPosition(position_service).toString();
                 if (!selected_service.equals(R.string.select_service)) {
                     spinner_professionals_adapter.clear();
-                    spinner_professionals_adapter.notifyDataSetChanged();
                     professionals_list.add(getString(R.string.select_professional));
+                    spinner_professionals_adapter.notifyDataSetChanged();
 
                     spinner_dates_adapter.clear();
-                    spinner_dates_adapter.notifyDataSetChanged();
                     dates_list.add(getString(R.string.select_date));
+                    spinner_dates_adapter.notifyDataSetChanged();
 
                     spinner_time_adapter.clear();
-                    spinner_time_adapter.notifyDataSetChanged();
                     time_list.add(getString(R.string.select_time));
+                    spinner_time_adapter.notifyDataSetChanged();
 
                     for(int i = 0; i < services_objects.size(); i++) {
                         if(services_objects.get(i).getString("Type").equals(selected_service)){
                             price_textview.setText(services_objects.get(i).getString("Price"), TextView.BufferType.EDITABLE);
-                            List<String> professionals = new ArrayList<>();
 
+                            List<String> professionals = new ArrayList<>();
                             professionals = services_objects.get(i).getList("Professionals");
 
                             for(i = 0; i < professionals.size(); i++) {
@@ -148,12 +149,12 @@ public class SchedulingActivity extends AppCompatActivity {
                 String selected_professional = parent_service.getItemAtPosition(position_service).toString();
                 if (!selected_professional.equals(R.string.select_professional)) {
                     spinner_dates_adapter.clear();
-                    spinner_dates_adapter.notifyDataSetChanged();
                     dates_list.add(getString(R.string.select_date));
+                    spinner_dates_adapter.notifyDataSetChanged();
 
                     spinner_time_adapter.clear();
-                    spinner_time_adapter.notifyDataSetChanged();
                     time_list.add(getString(R.string.select_time));
+                    spinner_time_adapter.notifyDataSetChanged();
 
                     ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
                     query_professional_schedule.whereEqualTo("Name", selected_professional);
@@ -186,18 +187,42 @@ public class SchedulingActivity extends AppCompatActivity {
                 String selected_date = parent_service.getItemAtPosition(position_service).toString();
                 if (!selected_date.equals(R.string.select_date)) {
                     spinner_time_adapter.clear();
-                    spinner_time_adapter.notifyDataSetChanged();
                     time_list.add(getString(R.string.select_time));
+                    spinner_time_adapter.notifyDataSetChanged();
+
+                    new_list.clear();
 
                     for(int i = 0; i < professionals_schedule_objects.size(); i++) {
                         if(professionals_schedule_objects.get(i).getString("Date").equals(selected_date)){
+
+                            alreadyScheduled = professionals_schedule_objects.get(i);
+                            if(alreadyScheduled.getList("Already_Scheduled") != null)
+                                new_list = alreadyScheduled.getList("Already_Scheduled");
+
                             List<String> times = new ArrayList<>();
-
                             times = professionals_schedule_objects.get(i).getList("Times");
+                            boolean scheduled;
 
-                            for(i = 0; i < times.size(); i++) {
-                                spinner_time_adapter.add(times.get(i));
+
+                            if(new_list.size() > 0) {
+                                for (i = 0; i < times.size(); i++) {
+                                    scheduled = false;
+                                    for (int j = 0; j < new_list.size(); j++)
+                                        if (times.get(i).equals(new_list.get(j))) {
+                                            scheduled = true;
+                                            break;
+                                        }
+
+                                    if(!scheduled)
+                                        spinner_time_adapter.add(times.get(i));
+                                }
                             }
+                            else{
+                                for (i = 0; i < times.size(); i++) {
+                                    spinner_time_adapter.add(times.get(i));
+                                }
+                            }
+
                             spinner_time_adapter.notifyDataSetChanged();
 
                             break;
@@ -258,7 +283,7 @@ public class SchedulingActivity extends AppCompatActivity {
                             errors.append(", ");
                         }
                         else if (i != 1) {
-                            errors.append(" " + R.string.and + " ");
+                            errors.append(" " + getString(R.string.and) + " ");
                         }
                         errors.append(error_array.get(i - 1).toString());
                     }
@@ -276,13 +301,18 @@ public class SchedulingActivity extends AppCompatActivity {
                     appointment.put("Appointment_Date", spinner_dates.getSelectedItem().toString());
                     appointment.put("Appointment_Time", spinner_time.getSelectedItem().toString());
                     appointment.saveInBackground();
-                    alertDisplayer(getString(R.string.scheduled_appointment), getString(R.string.checkout_appointment), spinner_dates.getSelectedItem().toString(), spinner_time.getSelectedItem().toString());
+
+                    new_list.add(spinner_time.getSelectedItem().toString());
+                    alreadyScheduled.put("Already_Scheduled", new_list);
+                    alreadyScheduled.saveInBackground();
+                    Toast.makeText(SchedulingActivity.this, appointment.getObjectId(),  Toast.LENGTH_LONG).show();
+                    alertDisplayer(getString(R.string.scheduled_appointment), getString(R.string.checkout_appointment), spinner_service.getSelectedItem().toString(), spinner_professionals.getSelectedItem().toString(), spinner_dates.getSelectedItem().toString(), spinner_time.getSelectedItem().toString());
                 }
             }
         });
     }
 
-    private void alertDisplayer(String title,String message, final String date, final String time){
+    private void alertDisplayer(String title, String message, final String service, final String professional, final String date, final String time){
         AlertDialog.Builder builder = new AlertDialog.Builder(SchedulingActivity.this)
                 .setTitle(title)
                 .setMessage(message)
@@ -291,6 +321,8 @@ public class SchedulingActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         Intent intent = new Intent(SchedulingActivity.this, ScheduledActivity.class);
+                        intent.putExtra("service", service);
+                        intent.putExtra("professional", professional);
                         intent.putExtra("date", date);
                         intent.putExtra("time", time);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

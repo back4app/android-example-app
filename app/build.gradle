@@ -28,7 +28,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'com.parse:parse-android:1.16.3' //update version to the latest one
-    implementation 'com.parse:parsetwitterutils-android:1.10.6'
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
     compile 'com.facebook.android:facebook-android-sdk:4.29.0'
@@ -36,6 +35,7 @@ dependencies {
     compile fileTree(include: 'Parse-*.jar', dir: 'libs')
     compile fileTree(include: 'ParseFacebookUtilsV4-*.jar', dir: 'libs')
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.parse:parsetwitterutils-android:1.10.6'
 }
 
 repositories {

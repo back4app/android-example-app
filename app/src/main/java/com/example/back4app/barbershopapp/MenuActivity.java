@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -79,6 +83,15 @@ public class MenuActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.action_logout:
                 Parse.initialize(this);
+                /*ParseFacebookUtils.unlinkInBackground(ParseUser.getCurrentUser(), new SaveCallback() {
+                    @Override
+                    public void done(ParseException ex) {
+                        if (ex == null) {
+                            Log.d("MyApp", "The user is no longer associated with their Facebook account.");
+                        }
+                    }
+                });*/
+
                 ParseUser.logOut();
                 alertDisplayer(getString(R.string.going), getString(R.string.bye));
                 break;

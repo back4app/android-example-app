@@ -76,81 +76,41 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
      */
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
+        showShopInMap(googleMap);
 
-        // services dropdown
-        shops_list = new ArrayList<>();
-        shops_list.add(getString(R.string.select_shop));
-        final Spinner spinner_shops = (Spinner) findViewById(R.id.shop_dropdown);
-        final ArrayAdapter<String> spinner_shops_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, shops_list);
-        spinner_shops_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_shops.setAdapter(spinner_shops_adapter);
-        spinner_shops.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
-                String selected_shop = parent_service.getItemAtPosition(position_service).toString();
-                if (!selected_shop.equals(R.string.select_service)) {
-                    showShopInMap(googleMap, selected_shop);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent_service) {
-                Log.d("oh, oh...", "Error");
-            }
-        });
-
-        ParseQuery<ParseObject> query_services = ParseQuery.getQuery("Location");
-        query_services.whereExists("Location");
-        query_services.selectKeys(Arrays.asList("Name"));
-        query_services.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> shops, ParseException e) {
-                if (e == null) {
-                    for(int i = 0; i < shops.size(); i++) {
-                        spinner_shops_adapter.add(shops.get(i).get("Name").toString());
-                    }
-                    spinner_shops_adapter.notifyDataSetChanged();
-                } else {
-                    Log.d("oh, oh...", "error");
-                }
-            }
-        });
     }
 
-    private void showShopInMap(final GoogleMap googleMap, String name) {
+    private void showShopInMap(final GoogleMap googleMap) {
 
-        if (!name.equals("default")) {
+        final TextView name_textView = (TextView) findViewById(R.id.name);
+        final TextView address_textView = (TextView) findViewById(R.id.address);
 
-            setContentView(R.layout.activity_location);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
+        query.whereExists("Location");
+        query.setLimit(1);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> shop, ParseException e) {
+                if (e == null) {
 
-            final TextView name_textView = (TextView) findViewById(R.id.name);
-            final TextView address_textView = (TextView) findViewById(R.id.address);
+                    name_textView.setText(shop.get(0).getString("Name"), TextView.BufferType.EDITABLE);
+                    String address = shop.get(0).getNumber("Number").toString() + " " + shop.get(0).getString("Address") + ", " + shop.get(0).getString("City") + ", " + shop.get(0).getString("State") + ", " + shop.get(0).getString("Country");
+                    address_textView.setText(address , TextView.BufferType.EDITABLE);
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Location");
-            query.whereEqualTo("Name", name);
-            query.setLimit(1);
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> shop, ParseException e) {
-                    if (e == null) {
+                    LatLng shopLocation = new LatLng(shop.get(0).getParseGeoPoint("Location").getLatitude(), shop.get(0).getParseGeoPoint("Location").getLongitude());
+                    googleMap.addMarker(new MarkerOptions().position(shopLocation).title(shop.get(0).getString("Name")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-                        name_textView.setText(shop.get(0).getString("Name"), TextView.BufferType.EDITABLE);
-                        String address = shop.get(0).getNumber("Number").toString() + " " + shop.get(0).getString("Address") + ", " + shop.get(0).getString("City") + ", " + shop.get(0).getString("State") + ", " + shop.get(0).getString("Country");
-                        address_textView.setText(address , TextView.BufferType.EDITABLE);
+                    // zoom the map to the shop
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLocation, 10));
 
-//                        LatLng shopLocation = new LatLng(shop.get(0).getParseGeoPoint("Location").getLatitude(), shop.get(0).getParseGeoPoint("Location").getLongitude());
-//                        googleMap.addMarker(new MarkerOptions().position(shopLocation).title(shop.get(0).getString("Name")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-//
-//                        // zoom the map to the shop
-//                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLocation, 10));
-
-                    } else {
-                        // handle the error
-                        Log.d("store", "Error: " + e.getMessage());
-                    }
+                } else {
+                    // handle the error
+                    Log.d("store", "Error: " + e.getMessage());
                 }
-            });
-            ParseQuery.clearAllCachedResults();
-        }
+            }
+        });
+        ParseQuery.clearAllCachedResults();
+
     }
 
 }

@@ -24,8 +24,36 @@
             android:textSize="12sp" />
 
         <Spinner
+            android:id="@+id/services_dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/dates_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="0dp"
+            android:paddingTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#8B0000"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

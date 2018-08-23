@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Parse.initialize(this);
         ParseTwitterUtils.initialize("ibtbhbOqvIyEFB1X9Ll2FXJuW", "Ae2RGBNEAHJgX5HhQBRsypQCReYZXaMp9Pn7CaO06zzWoTmZQ1");
-//        ParseFacebookUtils.initialize(this);
+        //ParseFacebookUtils.initialize(this);
 
         usernameView = (EditText) findViewById(R.id.username);
         passwordView = (EditText) findViewById(R.id.password);
@@ -151,34 +151,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        final Button facebook_button = findViewById(R.id.facebook_button);
-//        facebook_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Collection<String> permissions = Arrays.asList("public_profile", "email");
-//
-//                ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, permissions, new LogInCallback() {
-//
-//                    @Override
-//                    public void done(ParseUser user, ParseException err) {
-//                        if (err != null) {
-//                            ParseUser.logOut();
-//                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
-//                        }
-//                        if (user == null) {
-//                            ParseUser.logOut();
-//                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
-//                        } else if (user.isNew()) {
-//                            getUserDetailFromFB();
-//                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
-//                        } else {
-//                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        /*final Button facebook_button = findViewById(R.id.facebook_button);
+        facebook_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Collection<String> permissions = Arrays.asList("public_profile", "email");
+
+                ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, permissions, new LogInCallback() {
+
+                    @Override
+                    public void done(ParseUser user, ParseException err) {
+                        if (err != null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
+                        }
+                        if (user == null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
+                        } else if (user.isNew()) {
+                            getUserDetailFromFB();
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
+                        } else {
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
+                        }
+                    }
+                });
+            }
+        });*/
 
         final Button signup_button = findViewById(R.id.signup_button);
         signup_button.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void getUserDetailFromFB(){
+    /*private void getUserDetailFromFB(){
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -228,7 +228,7 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields","name,email");
         request.setParameters(parameters);
         request.executeAsync();
-    }
+    }*/
 
     private void alertDisplayer(String title, String message, final boolean error) {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this)
@@ -249,10 +249,10 @@ public class LoginActivity extends AppCompatActivity {
         ok.show();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-//    }
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+    }*/
 
 }

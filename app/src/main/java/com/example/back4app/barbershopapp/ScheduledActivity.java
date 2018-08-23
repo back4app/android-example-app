@@ -1,12 +1,39 @@
 package com.example.back4app.barbershopapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import static bolts.Task.delay;
 
 public class ScheduledActivity extends AppCompatActivity {
+
+    List<String> services_list = new ArrayList<>();
+    List<String> dates_list = new ArrayList<>();
+    List<String> appointments_services_copy = new ArrayList<>();
+    ParseObject objectOnTheScreen = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,49 +44,225 @@ public class ScheduledActivity extends AppCompatActivity {
         final TextView professionals_textview = (TextView) findViewById(R.id.professionals_textview);
         final TextView dates_textview = (TextView) findViewById(R.id.dates_textview);
         final TextView time_textview = (TextView) findViewById(R.id.time_textview);
+        final List<ParseObject> client_appointments = new ArrayList<>();
 
-        /*services = new ArrayList<>();
-        services.add("Outras Liberações");
-        final Spinner spinner_register = (Spinner) findViewById(R.id.liberacoes_dropdown);
-        final ArrayAdapter<String> spinner_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, names);
-        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_register.setAdapter(spinner_adapter);
-        spinner_register.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final Button back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selected = parent.getItemAtPosition(position).toString();
-                if (!selected.equals("Outras Liberações") && selected != parent.getItemAtPosition(0)) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Liberados");
-                    query.whereEqualTo("Nome", selected);
-                    query.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> liberado, ParseException e) {
-                            if (e == null) {
-                                type_liberation_textView.setText(liberado.get(0).getString("Tipo_Liberacao"), TextView.BufferType.EDITABLE);
+            public void onClick(View v) {
+                Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
-                                name_textView.setText(liberado.get(0).getString("Nome"), TextView.BufferType.EDITABLE);
+        final Button another_appointment_button = findViewById(R.id.add_button);
+        another_appointment_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ScheduledActivity.this, SchedulingActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
-                                arrival_textView.setText(liberado.get(0).getString("Destino"), TextView.BufferType.EDITABLE);
-
-                                complement_textView.setText(liberado.get(0).getString("Complemento"), TextView.BufferType.EDITABLE);
-
-                                type_document_textView.setText(liberado.get(0).getString("Tipo_Documento"), TextView.BufferType.EDITABLE);
-
-                                document_textView.setText(liberado.get(0).getString("Documento"), TextView.BufferType.EDITABLE);
-
-
-                            } else {
-                                Log.d("score", "Error: " + e.getMessage());
-                            }
-                        }
-                    });
+        final Button delete_button = findViewById(R.id.button_delete);
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(services_textview.length() > 0) {
+                    alertDisplayerToDelete(getString(R.string.warning), getString(R.string.really_want_to_delete), services_textview.getText().toString(), professionals_textview.getText().toString(), dates_textview.getText().toString(), time_textview.getText().toString(), objectOnTheScreen);
                 }
-                parent.setSelection(0);
+                else{
+                    Toast.makeText(ScheduledActivity.this, getString(R.string.select_appointment),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        // services dropdown
+        services_list.add(getString(R.string.other_scheduled_services));
+        final Spinner spinner_service = (Spinner) findViewById(R.id.services_dropdown);
+        final ArrayAdapter<String> spinner_service_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, services_list);
+        spinner_service_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_service.setAdapter(spinner_service_adapter);
+
+        // dates dropdown
+        dates_list.add(getString(R.string.select_date));
+        final Spinner spinner_dates = (Spinner) findViewById(R.id.dates_dropdown);
+        final ArrayAdapter<String> spinner_dates_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dates_list);
+        spinner_dates_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_dates.setAdapter(spinner_dates_adapter);
+
+        if(getIntent().getExtras().getString("service") != null) {
+                services_textview.setText(getIntent().getExtras().getString("service"));
+                professionals_textview.setText(getIntent().getExtras().getString("professional"));
+                dates_textview.setText(getIntent().getExtras().getString("date"));
+                time_textview.setText(getIntent().getExtras().getString("time"));
+        }
+
+        ParseQuery<ParseObject> query_appointments = ParseQuery.getQuery("Appointments");
+        query_appointments.whereEqualTo("Client", ParseUser.getCurrentUser().getUsername());
+        query_appointments.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> appointments, ParseException e) {
+                if (e == null) {
+                    client_appointments.addAll(appointments);
+
+                    int i;
+                    String service;
+                    appointments_services_copy.clear();
+
+                    for(i = 0; i < appointments.size(); i++)
+                        appointments_services_copy.add(appointments.get(i).getString("Appointment_Service"));
+
+                   while(appointments_services_copy.size() > 0) {
+                        service = appointments_services_copy.get(0);
+                        spinner_service_adapter.add(service);
+                        appointments_services_copy.removeAll(Collections.singleton(service));
+                    }
+                    spinner_service_adapter.notifyDataSetChanged();
+                } else {
+                    Log.d("oh, oh...", "error");
+                }
+            }
+        });
+
+        spinner_service.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
+                String selected_service = parent_service.getItemAtPosition(position_service).toString();
+                if (!selected_service.equals(R.string.other_scheduled_services)) {
+                    spinner_dates_adapter.clear();
+                    dates_list.add(getString(R.string.scheduled_dates));
+                    spinner_dates_adapter.notifyDataSetChanged();
+
+                    for(int i = 0; i < client_appointments.size(); i++) {
+                        if(client_appointments.get(i).getString("Appointment_Service").equals(selected_service)){
+
+                                spinner_dates_adapter.add(client_appointments.get(i).getString("Appointment_Date"));
+                        }
+                        spinner_dates_adapter.notifyDataSetChanged();
+
+                    }
+                }
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.d("FUNFA", "WE ARE DOOMED");
+            public void onNothingSelected(AdapterView<?> parent_service) {
+
             }
-        });*/
+        });
+
+        spinner_dates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
+                String selected_date = parent_service.getItemAtPosition(position_service).toString();
+                if (!selected_date.equals(R.string.scheduled_dates)) {
+                    for(int i = 0; i < client_appointments.size(); i++) {
+                        if(client_appointments.get(i).getString("Appointment_Service").equals(spinner_service.getSelectedItem().toString()) && client_appointments.get(i).getString("Appointment_Date").equals(spinner_dates.getSelectedItem().toString())){
+
+                            objectOnTheScreen = client_appointments.get(i);
+
+                            services_textview.setText(client_appointments.get(i).getString("Appointment_Professional"));
+                            professionals_textview.setText(client_appointments.get(i).getString("Appointment_Service"));
+                            dates_textview.setText(client_appointments.get(i).getString("Appointment_Date"));
+                            time_textview.setText(client_appointments.get(i).getString("Appointment_Time"));
+                        }
+                    }
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent_service) {
+
+            }
+        });
 
     }
+
+    private void alertDisplayerToDelete(String title, String message, final String service, final String professional, final String date, final String time, final ParseObject object){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScheduledActivity.this, R.style.AlertDialogTheme)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+
+                        ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
+                        query_professional_schedule.whereEqualTo("Name", professional);
+                        query_professional_schedule.whereEqualTo("Date", date);
+                        query_professional_schedule.setLimit(1);
+                        query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
+                                if (e == null) {
+                                    List<String> alreadyScheduled = new ArrayList<>();
+                                    alreadyScheduled = professionals_schedule_info.get(0).getList("Already_Scheduled");
+                                    alreadyScheduled.remove(time);
+                                    professionals_schedule_info.get(0).put("Already_Scheduled", alreadyScheduled);
+                                    professionals_schedule_info.get(0).saveInBackground();
+                                } else {
+                                    Log.d(":(", "Error: " + e.getMessage());
+                                }
+                            }
+                        });
+
+                        if(object != null) {
+                            object.deleteInBackground();
+                        }
+                        else{
+                            ParseQuery<ParseObject> query_object = ParseQuery.getQuery("Appointments");
+                            query_object.whereEqualTo("Appointment_Service", service);
+                            query_object.whereEqualTo("Appointment_Professional", professional);
+                            query_object.whereEqualTo("Appointment_Date", date);
+                            query_object.whereEqualTo("Appointment_Time", time);
+                            query_object.setLimit(1);
+                            query_object.findInBackground(new FindCallback<ParseObject>() {
+                                public void done(List<ParseObject> objects, ParseException e) {
+                                    if (e == null) {
+                                        objects.get(0).deleteInBackground();
+
+                                    } else {
+                                        Log.d(":(", "Error: " + e.getMessage());
+                                        Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("service", service);
+                                        intent.putExtra("professional", professional);
+                                        intent.putExtra("date", date);
+                                        intent.putExtra("time", time);
+                                        intent.putExtra("object", object);
+                                        Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+
+                        }
+
+                        Toast.makeText(ScheduledActivity.this, getString(R.string.deleted_appointment), Toast.LENGTH_LONG).show();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("service", service);
+                        intent.putExtra("professional", professional);
+                        intent.putExtra("date", date);
+                        intent.putExtra("time", time);
+                        intent.putExtra("object", object);
+                        Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                    }
+                });
+
+        AlertDialog ok = builder.create();
+        ok.show();
+    }
+
 }
