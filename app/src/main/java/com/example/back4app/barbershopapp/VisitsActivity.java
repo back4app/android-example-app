@@ -1,5 +1,6 @@
 package com.example.back4app.barbershopapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -39,6 +42,22 @@ public class VisitsActivity extends AppCompatActivity {
         final TextView description = (TextView) findViewById(R.id.description);
         final ImageView photo = (ImageView)findViewById(R.id.service_photo);
 
+        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
+        photo.setImageBitmap(bitmap);
+
+        final Button back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Bundle bundle = new Bundle();
+                final Intent intent = new Intent(VisitsActivity.this, MenuActivity.class);
+                bundle.putString("TabNumber", "1");
+                intent.putExtras(bundle);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
         visits = new ArrayList<>();
         visits.add(getString(R.string.visits));
         final Spinner spinner_visits = (Spinner) findViewById(R.id.visits_dropdown);
@@ -50,7 +69,7 @@ public class VisitsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = parent.getItemAtPosition(position).toString();
                 if (!selected.equals(getString(R.string.visits))) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointments");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Visits");
                     query.whereEqualTo("Date", selected);
                     query.setLimit(1);
                     query.findInBackground(new FindCallback<ParseObject>() {
@@ -75,9 +94,14 @@ public class VisitsActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
+                                else{
+                                    photo.setImageBitmap(bitmap);
+
+                                }
 
                             } else {
                                 Log.d(":(", "Error: " + e.getMessage());
+                                photo.setImageBitmap(bitmap);
                             }
                         }
                     });
@@ -90,11 +114,8 @@ public class VisitsActivity extends AppCompatActivity {
             }
         });
 
-        String user_name = ParseUser.getCurrentUser().getUsername();
-
         ParseQuery<ParseObject> query_client_visits = ParseQuery.getQuery("Visits");
-        query_client_visits.whereEqualTo("Client", user_name);
-        query_client_visits.orderByDescending("updatedAt");
+        query_client_visits.whereEqualTo("Client", ParseUser.getCurrentUser().getUsername());
         query_client_visits.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> client_visits, ParseException e) {
                 if (e == null) {

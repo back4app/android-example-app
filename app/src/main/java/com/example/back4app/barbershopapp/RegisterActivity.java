@@ -1,11 +1,14 @@
 package com.example.back4app.barbershopapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.app.AlertDialog;
@@ -24,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText emailView;
     private EditText passwordView;
     private EditText passwordAgainView;
+    ImageView photo = (ImageView) findViewById(R.id.photo);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
         emailView = (EditText) findViewById(R.id.email);
         passwordView = (EditText) findViewById(R.id.password);
         passwordAgainView = (EditText) findViewById(R.id.passwordAgain);
+
+        /*Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
+        photo.setImageBitmap(bitmap);
+
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_photo)), 1);
+            }
+        });*/
 
         final Button signup_button = findViewById(R.id.signup_button);
         signup_button.setOnClickListener(new View.OnClickListener() {
@@ -190,4 +207,12 @@ public class RegisterActivity extends AppCompatActivity {
         AlertDialog ok = builder.create();
         ok.show();
     }
+
+    /*public void onActivityResult(int reqCode, int resCode, Intent data){
+        if(resCode == RESULT_OK){
+            if(reqCode == 1){
+                photo.setImageURI(data.getData());
+            }
+        }
+    }*/
 }

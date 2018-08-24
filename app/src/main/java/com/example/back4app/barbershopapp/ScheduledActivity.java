@@ -3,6 +3,7 @@ package com.example.back4app.barbershopapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -188,7 +189,11 @@ public class ScheduledActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        final Bundle bundle = new Bundle();
                         final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+                        bundle.putString("TabNumber", "1");
+                        intent.putExtras(bundle);
+
 
                         ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
                         query_professional_schedule.whereEqualTo("Name", professional);

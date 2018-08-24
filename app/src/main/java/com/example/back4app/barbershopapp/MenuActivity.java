@@ -64,6 +64,12 @@ public class MenuActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        final Intent intent = getIntent();
+        if (intent.hasExtra("TabNumber")) {
+            String tab = intent.getExtras().getString("TabNumber");
+            switchToTab(tab);
+        }
+
     }
 
     @Override
@@ -83,14 +89,6 @@ public class MenuActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.action_logout:
                 Parse.initialize(this);
-                /*ParseFacebookUtils.unlinkInBackground(ParseUser.getCurrentUser(), new SaveCallback() {
-                    @Override
-                    public void done(ParseException ex) {
-                        if (ex == null) {
-                            Log.d("MyApp", "The user is no longer associated with their Facebook account.");
-                        }
-                    }
-                });*/
 
                 ParseUser.logOut();
                 alertDisplayer(getString(R.string.going), getString(R.string.bye));
@@ -154,5 +152,15 @@ public class MenuActivity extends AppCompatActivity {
                 });
         AlertDialog ok = builder.create();
         ok.show();
+    }
+
+    public void switchToTab(String tab){
+        if(tab.equals("0")){
+            mViewPager.setCurrentItem(0);
+        }else if(tab.equals("1")){
+            mViewPager.setCurrentItem(1);
+        }else if(tab.equals("2")){
+            mViewPager.setCurrentItem(2);
+        }
     }
 }

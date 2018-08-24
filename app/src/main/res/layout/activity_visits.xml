@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context="com.example.back4app.barbershopapp.VisitsActivity">
 
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="@string/back"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
     <Spinner
         android:id="@+id/visits_dropdown"
         android:layout_width="match_parent"
@@ -14,8 +23,8 @@
 
     <ImageView
         android:id="@+id/service_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:srcCompat="@android:drawable/btn_star" />
 
     <TextView

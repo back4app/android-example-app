@@ -42,7 +42,7 @@
     <string name="verify_email">Please, verify your email first.</string>
 
 
-    <!-- Sign Up-->
+    <!-- Register -->
     <string name="username_">Username*</string>
     <string name="password_">Password*</string>
     <string name="signup">Sign Up</string>
@@ -68,6 +68,7 @@
     <string name="required_field">the required field</string>
     <string name="required_fields">the required fields</string>
     <string name="not_matching_passwords">Insert matching passwords.</string>
+    <string name="choose_photo">Choose your profile picture</string>
 
 
     <!-- Schedule an appointment -->
