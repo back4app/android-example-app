@@ -80,9 +80,13 @@ public class MenuActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.action_logout:
                 Parse.initialize(this);
-
                 ParseUser.logOut();
                 alertDisplayer(getString(R.string.going), getString(R.string.bye));
+                break;
+            case R.id.action_edit_profile:
+                Intent intent = new Intent(MenuActivity.this, EditProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

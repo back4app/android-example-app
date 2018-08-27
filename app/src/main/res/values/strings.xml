@@ -1,6 +1,6 @@
 <resources>
     <!-- App Name -->
-    <string name="app_name">Back4App Barber Shop App</string>
+    <string name="app_name">Back4App Barber Shop</string>
 
     <!-- Back4App Keys -->
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
@@ -149,6 +149,12 @@
 
     <!-- Sale -->
     <string name="loading_sales">The available sales are being loaded.</string>
+
+    <!-- Edit Profile -->
+    <string name="loading_profile">Your profile is being loaded.</string>
+    <string name="editing">Editing your profile…</string>
+    <string name="edit_profile">Edit profile</string>
+
 
 
 </resources>
