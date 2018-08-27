@@ -1,7 +1,10 @@
 package com.example.back4app.barbershopapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,15 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Button;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText emailView;
     private EditText passwordView;
     private EditText passwordAgainView;
-    ImageView photo = (ImageView) findViewById(R.id.photo);
+    private ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
         emailView = (EditText) findViewById(R.id.email);
         passwordView = (EditText) findViewById(R.id.password);
         passwordAgainView = (EditText) findViewById(R.id.passwordAgain);
+        photo = (ImageView) findViewById(R.id.photo);
 
-        /*Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
         photo.setImageBitmap(bitmap);
 
         photo.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_photo)), 1);
             }
-        });*/
+        });
 
         final Button signup_button = findViewById(R.id.signup_button);
         signup_button.setOnClickListener(new View.OnClickListener() {
@@ -145,23 +151,42 @@ public class RegisterActivity extends AppCompatActivity {
                     emailView.setError(null);
                     passwordView.setError(null);
 
-                    // Sign up with Parse
-                    ParseUser user = new ParseUser();
-                    user.setUsername(usernameView.getText().toString());
-                    user.setPassword(passwordView.getText().toString());
-                    user.setEmail(emailView.getText().toString());
+                    Bitmap bitmapImage = ((BitmapDrawable) photo.getDrawable()).getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmapImage.compress(Bitmap.CompressFormat.JPEG, 40, stream);
 
-                    user.signUpInBackground(new SignUpCallback() {
-                        @Override
+                    byte[] byteArray = stream.toByteArray();
+
+                    final ParseFile file = new ParseFile(usernameView.getText().toString() +".png", byteArray);
+                    file.saveInBackground(new SaveCallback() {
                         public void done(ParseException e) {
-                            dlg.dismiss();
-                            if (e == null) {
-                                ParseUser.logOut();
-                                alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false);
-                            } else {
-                                ParseUser.logOut();
-                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true);
+                            // If successful add file to user and signUpInBackground
+                            if(null == e){
+                                // Sign up with Parse
+                                ParseUser user = new ParseUser();
+                                user.setUsername(usernameView.getText().toString());
+                                user.setPassword(passwordView.getText().toString());
+                                user.setEmail(emailView.getText().toString());
+                                user.put("Photo", file);
+
+                                user.signUpInBackground(new SignUpCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        dlg.dismiss();
+                                        if (e == null) {
+                                            ParseUser.logOut();
+                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false, usernameView.getText().toString());
+                                        } else {
+                                            ParseUser.logOut();
+                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                                        }
+                                    }
+                                });
                             }
+                            else{
+                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                            }
+
                         }
                     });
                 } catch (Exception e) {
@@ -189,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void alertDisplayer(String title,String message, final boolean error){
+    private void alertDisplayer(String title,String message, final boolean error, final String username){
         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this)
                 .setTitle(title)
                 .setMessage(message)
@@ -208,11 +233,11 @@ public class RegisterActivity extends AppCompatActivity {
         ok.show();
     }
 
-    /*public void onActivityResult(int reqCode, int resCode, Intent data){
+    public void onActivityResult(int reqCode, int resCode, Intent data){
         if(resCode == RESULT_OK){
             if(reqCode == 1){
                 photo.setImageURI(data.getData());
             }
         }
-    }*/
+    }
 }

@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
