@@ -3,7 +3,6 @@ package com.example.back4app.barbershopapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,18 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import static bolts.Task.delay;
 
 public class ScheduledActivity extends AppCompatActivity {
 
@@ -107,7 +102,7 @@ public class ScheduledActivity extends AppCompatActivity {
         query_appointments.whereEqualTo("Client", ParseUser.getCurrentUser().getUsername());
         query_appointments.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> appointments, ParseException e) {
-                if (e == null) {
+                if (e == null && appointments.size() > 0) {
                     client_appointments.addAll(appointments);
 
                     int i;
@@ -201,7 +196,7 @@ public class ScheduledActivity extends AppCompatActivity {
                         query_professional_schedule.setLimit(1);
                         query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
                             public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
-                                if (e == null) {
+                                if (e == null && professionals_schedule_info.size() > 0) {
                                     List<String> alreadyScheduled = new ArrayList<>();
                                     alreadyScheduled = professionals_schedule_info.get(0).getList("Already_Scheduled");
                                     alreadyScheduled.remove(time);
@@ -225,11 +220,10 @@ public class ScheduledActivity extends AppCompatActivity {
                             query_object.setLimit(1);
                             query_object.findInBackground(new FindCallback<ParseObject>() {
                                 public void done(List<ParseObject> objects, ParseException e) {
-                                    if (e == null) {
+                                    if (e == null & objects.size() > 0) {
                                         objects.get(0).deleteInBackground();
 
                                     } else {
-                                        Log.d(":(", "Error: " + e.getMessage());
                                         Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra("service", service);

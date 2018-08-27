@@ -1,7 +1,6 @@
 package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SchedulingActivity extends AppCompatActivity {
@@ -90,7 +88,7 @@ public class SchedulingActivity extends AppCompatActivity {
         query_services.whereExists("Type");
         query_services.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> services, ParseException e) {
-                if (e == null) {
+                if (e == null && services.size() > 0) {
                     services_objects.addAll(services);
 
                     for(int i = 0; i < services.size(); i++) {
@@ -160,7 +158,7 @@ public class SchedulingActivity extends AppCompatActivity {
                     query_professional_schedule.whereEqualTo("Name", selected_professional);
                     query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
-                            if (e == null) {
+                            if (e == null && professionals_schedule_info.size() > 0) {
                                 professionals_schedule_objects.addAll(professionals_schedule_info);
 
                                 for(int j = 0; j < professionals_schedule_info.size(); j++){
@@ -169,7 +167,7 @@ public class SchedulingActivity extends AppCompatActivity {
 
                                 spinner_dates_adapter.notifyDataSetChanged();
                             } else {
-                                Log.d(":(", "Error: " + e.getMessage());
+                                Log.d(":(", "error");
                             }
                         }
                     });
@@ -305,7 +303,6 @@ public class SchedulingActivity extends AppCompatActivity {
                     new_list.add(spinner_time.getSelectedItem().toString());
                     alreadyScheduled.put("Already_Scheduled", new_list);
                     alreadyScheduled.saveInBackground();
-                    Toast.makeText(SchedulingActivity.this, appointment.getObjectId(),  Toast.LENGTH_LONG).show();
                     alertDisplayer(getString(R.string.scheduled_appointment), getString(R.string.checkout_appointment), spinner_service.getSelectedItem().toString(), spinner_professionals.getSelectedItem().toString(), spinner_dates.getSelectedItem().toString(), spinner_time.getSelectedItem().toString());
                 }
             }

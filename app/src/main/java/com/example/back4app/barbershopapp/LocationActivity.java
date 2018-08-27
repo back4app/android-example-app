@@ -1,21 +1,13 @@
 package com.example.back4app.barbershopapp;
 
 // Android Dependencies
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.InflateException;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 // Google Maps Dependencies
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -34,8 +26,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 // Java dependencies
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -91,7 +81,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> shop, ParseException e) {
-                if (e == null) {
+                if (e == null && shop.size() > 0) {
 
                     name_textView.setText(shop.get(0).getString("Name"), TextView.BufferType.EDITABLE);
                     String address = shop.get(0).getNumber("Number").toString() + " " + shop.get(0).getString("Address") + ", " + shop.get(0).getString("City") + ", " + shop.get(0).getString("State") + ", " + shop.get(0).getString("Country");
@@ -103,9 +93,6 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                     // zoom the map to the shop
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLocation, 10));
 
-                } else {
-                    // handle the error
-                    Log.d("store", "Error: " + e.getMessage());
                 }
             }
         });

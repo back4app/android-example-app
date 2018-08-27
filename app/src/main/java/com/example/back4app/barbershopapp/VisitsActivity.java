@@ -23,7 +23,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class VisitsActivity extends AppCompatActivity {
@@ -73,7 +73,7 @@ public class VisitsActivity extends AppCompatActivity {
                     query.setLimit(1);
                     query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> visit, ParseException e) {
-                            if (e == null) {
+                            if (e == null && visit.size() > 0) {
                                 service.setText(visit.get(0).getString("Service"), TextView.BufferType.EDITABLE);
 
                                 professional.setText(visit.get(0).getString("Professional"), TextView.BufferType.EDITABLE);
@@ -99,7 +99,7 @@ public class VisitsActivity extends AppCompatActivity {
                                 }
 
                             } else {
-                                Log.d(":(", "Error: " + e.getMessage());
+                                Log.d(":(", "error");
                                 photo.setImageBitmap(bitmap);
                             }
                         }
@@ -117,13 +117,13 @@ public class VisitsActivity extends AppCompatActivity {
         query_client_visits.whereEqualTo("Client", ParseUser.getCurrentUser().getUsername());
         query_client_visits.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> client_visits, ParseException e) {
-                if (e == null) {
+                if (e == null && client_visits.size() > 0) {
                     for(int i = 0; i < client_visits.size(); i++) {
                         spinner_adapter.add(client_visits.get(i).get("Date").toString());
                     }
                     spinner_adapter.notifyDataSetChanged();
                 } else {
-                    Log.d(":(", "Error");
+                    Log.d(":(", "error");
                 }
             }
         });

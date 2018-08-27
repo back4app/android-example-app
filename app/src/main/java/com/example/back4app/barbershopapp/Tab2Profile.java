@@ -17,7 +17,6 @@ import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -44,7 +43,7 @@ public class Tab2Profile extends Fragment {
 
                     ParseFile imageFile = (ParseFile) user.get(0).getParseFile("Photo");
 
-                    if(imageFile != null){
+                    if(e == null && imageFile != null){
                         imageFile.getDataInBackground(new GetDataCallback() {
                             @Override
                             public void done(byte[] data, ParseException e) {
@@ -60,7 +59,7 @@ public class Tab2Profile extends Fragment {
                     }
 
                 } else {
-                    Log.d(":(", "Error: " + e.getMessage());
+                    Log.d(":(", "error");
                     Bitmap bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
                     photo.setImageBitmap(bitmap);
                 }

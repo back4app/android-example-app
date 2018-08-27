@@ -1,6 +1,6 @@
 <resources>
     <!-- App Name -->
-    <string name="app_name">Original Barber Shop App</string>
+    <string name="app_name">Back4App Barber Shop App</string>
 
     <!-- Back4App Keys -->
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
@@ -145,6 +145,10 @@
     <string name="not_edited_appointment">Edition of appointment canceled.</string>
 
     <!-- About us -->
-    <string name="barber_description">Hair, beard and all services aimed at male\'s vanity make the Original Barber Shop network synonymous of excellence in barber shop.\n\nFounded in 1970, the Original Barber Shop is an environment inspired by traditional barber shops that has been adapted to the needs of modern man.\n\nBesides our high quality services, we have a unique product line and complete structure for fun and relaxation, with pool table, new and old video games, massage chair, open bar and more.</string>
+    <string name="barber_description">Hair, beard and all services aimed at male\'s vanity make the Back4App Barber Shop network synonymous of excellence in barber shop.\n\nFounded in 1970, the Original Barber Shop is an environment inspired by traditional barber shops that has been adapted to the needs of modern man.\n\nBesides our high quality services, we have a unique product line and complete structure for fun and relaxation, with pool table, new and old video games, massage chair, open bar and more.</string>
+
+    <!-- Sale -->
+    <string name="loading_sales">The available sales are being loaded.</string>
+
 
 </resources>

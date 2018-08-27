@@ -24,14 +24,10 @@
             android:textSize="12sp" />
 
         <ImageView
+            android:id="@+id/sale"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/btn_star" />
+            android:layout_height="match_parent"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
     </LinearLayout>
 </ScrollView>

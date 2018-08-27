@@ -1,6 +1,5 @@
 package com.example.back4app.barbershopapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
