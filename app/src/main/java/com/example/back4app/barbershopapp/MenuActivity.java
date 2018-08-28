@@ -14,6 +14,10 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseUser;
@@ -84,6 +88,25 @@ public class MenuActivity extends AppCompatActivity {
                 alertDisplayer(getString(R.string.going), getString(R.string.bye));
                 break;
             case R.id.action_edit_profile:
+                /*AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_password, null);
+                final EditText mPassword = (EditText) mView.findViewById(R.id.password);
+                Button mConfirm = (Button) mView.findViewById(R.id.button);
+
+                mConfirm.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        if(!mPassword.getText().toString().isEmpty()){
+                            if(mPassword.getText().toString().equals(ParseUser.getCurrentUser().getString("Password"))))
+
+                        }
+                        else{
+                            Toast.makeText(MenuActivity.this, R.string.error_empty, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });*/
+
+
                 Intent intent = new Intent(MenuActivity.this, EditProfileActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
