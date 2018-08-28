@@ -6,19 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.LogInCallback;
 import com.parse.ParseTwitterUtils;
+import com.parse.RequestPasswordResetCallback;
 import com.parse.SaveCallback;
 
 import java.lang.String;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -179,6 +184,73 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            }
+        });
+
+
+        final TextView reset_password = findViewById(R.id.reset_password);
+        reset_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_reset_password, null);
+                final EditText mEmail = (EditText) mView.findViewById(R.id.email);
+                Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+                Button mCancel = (Button) mView.findViewById(R.id.cancel);
+
+                mConfirm.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        if(!mEmail.getText().toString().isEmpty()){
+                            final String email = mEmail.getText().toString();
+                            ParseQuery<ParseUser> query = ParseUser.getQuery();
+                            query.whereEqualTo("email", email);
+                            query.setLimit(1);
+                            query.findInBackground(new FindCallback<ParseUser>() {
+                                public void done(List<ParseUser> user, ParseException e) {
+                                    if (e == null && user.size() > 0) {
+                                        // The query was successful.
+
+                                        ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
+                                            public void done(ParseException e) {
+                                                if (e == null) {
+                                                    // An email was successfully sent with reset instructions.
+                                                    Toast.makeText(LoginActivity.this, getString(R.string.reset_password_sucessful), Toast.LENGTH_LONG).show();
+                                                    Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                } else {
+                                                    Toast.makeText(LoginActivity.this, getString(R.string.reset_password_unsucessful), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
+
+                                    } else {
+                                        // Something went wrong.
+                                        Toast.makeText(LoginActivity.this, getString(R.string.error_user_not_found), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, getString(R.string.error_empty_email), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                mCancel.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
             }
         });
     }

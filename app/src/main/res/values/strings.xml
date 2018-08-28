@@ -40,7 +40,12 @@
     <string name="exclamation_point">!</string>
     <string name="sorry_cant_login">It wasn\'t possible to login, try again.</string>
     <string name="verify_email">Please, verify your email first.</string>
-
+    <string name="reset_password">Reset your password</string>
+    <string name="really_reset_password">If you really want to reset your password, insert the email associated to your account and click on the CONFIRM button.\nAfter that, an email will be sent to you in order to reset your password. </string>
+    <string name="error_user_not_found">We couldn\'t find a user associated to this email. Try again.</string>
+    <string name="reset_password_sucessful">An email was successfully sent to you with reset instructions.</string>
+    <string name="reset_password_unsucessful">Something went wrong. Try again.</string>
+    <string name="error_empty_email">Insert your email to reset your password.</string>
 
     <!-- Register -->
     <string name="username_">Username*</string>
@@ -158,9 +163,10 @@
     <!-- Dialog Password -->
     <string name="insert_password">To edit your profile, please enter your login password.</string>
     <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Menu -->
-    <string name="error_empty">Insert your password to edit your profile.</string>
+    <string name="error_empty_password">Insert your password to edit your profile.</string>
     <string name="error_password">Insert your password correctly to edit your profile.</string>
 
 
