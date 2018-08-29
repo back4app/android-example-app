@@ -19,8 +19,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.LogInCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.RequestPasswordResetCallback;
+
+import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -88,28 +95,47 @@ public class MenuActivity extends AppCompatActivity {
                 alertDisplayer(getString(R.string.going), getString(R.string.bye));
                 break;
             case R.id.action_edit_profile:
-                /*AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_password, null);
                 final EditText mPassword = (EditText) mView.findViewById(R.id.password);
-                Button mConfirm = (Button) mView.findViewById(R.id.button);
+                Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+                Button mCancel = (Button) mView.findViewById(R.id.cancel);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
 
                 mConfirm.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         if(!mPassword.getText().toString().isEmpty()){
-                            if(mPassword.getText().toString().equals(ParseUser.getCurrentUser().getString("Password"))))
+                            ParseUser.logInInBackground(ParseUser.getCurrentUser().getUsername(), mPassword.getText().toString(), new LogInCallback() {
+                                @Override
+                                public void done(ParseUser parseUser, ParseException e) {
+                                    if (e == null && parseUser != null) {
+                                        Toast.makeText(MenuActivity.this, getString(R.string.edit_profile_successful), Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(MenuActivity.this, EditProfileActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(MenuActivity.this, getString(R.string.invalid_password), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
 
                         }
                         else{
-                            Toast.makeText(MenuActivity.this, R.string.error_empty, Toast.LENGTH_LONG).show();
+                            Toast.makeText(MenuActivity.this, getString(R.string.error_empty_password), Toast.LENGTH_LONG).show();
                         }
                     }
-                });*/
+                });
 
-
-                Intent intent = new Intent(MenuActivity.this, EditProfileActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                mCancel.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        dialog.dismiss();
+                    }
+                });
                 break;
             default:
                 return super.onOptionsItemSelected(item);

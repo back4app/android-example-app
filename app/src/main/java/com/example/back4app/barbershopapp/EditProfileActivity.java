@@ -21,6 +21,7 @@ import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -63,6 +64,9 @@ public class EditProfileActivity extends AppCompatActivity {
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
         photo.setImageBitmap(bitmap);
 
+        final String old_email = ParseUser.getCurrentUser().getEmail();
+        final String old_username = ParseUser.getCurrentUser().getUsername();
+
         //Setting up a progress dialog
         final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this);
         dlg.setTitle(R.string.wait);
@@ -74,12 +78,7 @@ public class EditProfileActivity extends AppCompatActivity {
         query.setLimit(1);
         query.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> user, ParseException e) {
-                usernameView.setText(ParseUser.getCurrentUser().getUsername());
-                emailView.setText(ParseUser.getCurrentUser().getEmail());
-                if (e == null) {
-                    usernameView.setText(ParseUser.getCurrentUser().getUsername());
-                    emailView.setText(ParseUser.getCurrentUser().getEmail());
-
+                if (e == null && user != null) {
                     ParseFile imageFile = (ParseFile) user.get(0).getParseFile("Photo");
 
                     if(e == null && imageFile != null){
@@ -96,6 +95,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         photo.setImageBitmap(bitmap);
 
                     }
+                    usernameView.setText(ParseUser.getCurrentUser().getUsername());
+                    emailView.setText(ParseUser.getCurrentUser().getEmail());
                     dlg.dismiss();
 
                 } else {
@@ -212,9 +213,15 @@ public class EditProfileActivity extends AppCompatActivity {
                             if(null == e){
                                 // Sign up with Parse
                                 ParseUser user = ParseUser.getCurrentUser();
-                                user.setUsername(usernameView.getText().toString());
+                                if(!old_username.equals(usernameView.getText().toString())) {
+                                    user.setUsername(usernameView.getText().toString());
+                                }
+
+                                if(!old_email.equals(emailView.getText().toString())) {
+                                    user.setEmail(emailView.getText().toString());
+                                }
+
                                 user.setPassword(passwordView.getText().toString());
-                                user.setEmail(emailView.getText().toString());
                                 user.put("Photo", file);
 
                                 user.saveInBackground(new SaveCallback() {
@@ -222,17 +229,68 @@ public class EditProfileActivity extends AppCompatActivity {
                                     public void done(ParseException e) {
                                         dlg.dismiss();
                                         if (e == null) {
-                                            ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false, usernameView.getText().toString());
+                                            if(!old_username.equals(usernameView.getText().toString())) {
+                                                ParseQuery<ParseObject> query_appointments = ParseQuery.getQuery("Appointments");
+                                                query_appointments.whereEqualTo("Client", old_username);
+                                                query_appointments.findInBackground(new FindCallback<ParseObject>() {
+                                                    public void done(List<ParseObject> appointments, ParseException e) {
+                                                        if (e == null && appointments.size() > 0) {
+                                                            for (int i = 0; i < appointments.size(); i++) {
+                                                                appointments.get(i).put("Client", usernameView.getText().toString());
+                                                                appointments.get(i).saveInBackground();
+                                                            }
+                                                        } else {
+                                                            Log.d(":(", "error");
+                                                        }
+                                                    }
+                                                });
+
+                                                ParseQuery<ParseObject> query_visits = ParseQuery.getQuery("Visits");
+                                                query_visits.whereEqualTo("Client", old_username);
+                                                query_visits.findInBackground(new FindCallback<ParseObject>() {
+                                                    public void done(List<ParseObject> visits, ParseException e) {
+                                                        if (e == null && visits.size() > 0) {
+                                                            for (int i = 0; i < visits.size(); i++) {
+                                                                visits.get(i).put("Client", usernameView.getText().toString());
+                                                                visits.get(i).saveInBackground();
+                                                            }
+                                                        } else {
+                                                            Log.d(":(", "error");
+                                                        }
+                                                    }
+                                                });
+
+                                                ParseQuery<ParseObject> query_messages = ParseQuery.getQuery("Contact_Us");
+                                                query_messages.whereEqualTo("Username", old_username);
+                                                query_messages.findInBackground(new FindCallback<ParseObject>() {
+                                                    public void done(List<ParseObject> messages, ParseException e) {
+                                                        if (e == null && messages.size() > 0) {
+                                                            for (int i = 0; i < messages.size(); i++) {
+                                                                messages.get(i).put("Username", usernameView.getText().toString());
+                                                                messages.get(i).saveInBackground();
+                                                            }
+                                                        } else {
+                                                            Log.d(":(", "error");
+                                                        }
+                                                    }
+                                                });
+                                            }
+
+                                            if(!old_email.equals(emailView.getText().toString())) {
+                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.verify_edited_email), false, usernameView.getText().toString());
+                                            }
+                                            else{
+                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.dont_forget_changes), false, usernameView.getText().toString());
+                                            }
+
                                         } else {
-                                            ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                                            alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true, usernameView.getText().toString());
                                         }
                                     }
                                 });
                             }
                             else{
-                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                                alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true, usernameView.getText().toString());
                             }
 
                         }
@@ -271,7 +329,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         if(!error) {
-                            Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(EditProfileActivity.this, MenuActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }

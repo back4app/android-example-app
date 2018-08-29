@@ -159,6 +159,11 @@
     <string name="loading_profile">Your profile is being loaded.</string>
     <string name="editing">Editing your profile…</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="edit_profile_finished">Your profile was updated successfully!</string>
+    <string name="verify_edited_email">As you changed your email account, in order to be able to login again you\'ll have to verify your email address.</string>
+    <string name="dont_forget_changes">Don\'t forget changes in your next login.</string>
+    <string name="sorry">Sorry…</string>
+    <string name="message_unsuccessful_edition">Your changes couldn\'t be saved.\nTry again.</string>
 
     <!-- Dialog Password -->
     <string name="insert_password">To edit your profile, please enter your login password.</string>
@@ -168,6 +173,8 @@
     <!-- Menu -->
     <string name="error_empty_password">Insert your password to edit your profile.</string>
     <string name="error_password">Insert your password correctly to edit your profile.</string>
+    <string name="edit_profile_successful">Edit your profile and save it.</string>
+    <string name="invalid_password">Enter a valid password.</string>
 
 
 

@@ -107,13 +107,5 @@
             android:text="@string/signup"
             android:textSize="12sp" />
 
-        <TextView
-            android:layout_marginTop="40dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/register"
-            android:textSize="14sp" />
-
     </LinearLayout>
 </ScrollView>
