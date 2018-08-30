@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".LoginActivity"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
@@ -27,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SaleActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -56,6 +57,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -68,23 +70,43 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LocationActivity"
-            android:label="@string/title_activity_location" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".SchedulingActivity" />
+            android:label="@string/title_activity_location"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".SchedulingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".Tab1Barber" />
-        <activity android:name=".Tab2Profile" />
-        <activity android:name=".Tab3Contact" />
-        <activity android:name=".VisitsActivity" />
-        <activity android:name=".ScheduledActivity" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
-    </application>
 
+        <activity android:name=".Tab1Barber" />
+
+        <activity android:name=".Tab2Profile" />
+
+        <activity android:name=".Tab3Contact" />
+
+        <activity android:name=".VisitsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ScheduledActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".SaleActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
 </manifest>

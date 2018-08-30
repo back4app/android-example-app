@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.SplashScreen" parent="AppTheme">
+    <style name="AppTheme.SplashScreen" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 

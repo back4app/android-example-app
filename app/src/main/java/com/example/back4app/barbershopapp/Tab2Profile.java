@@ -29,8 +29,12 @@ public class Tab2Profile extends Fragment {
         View rootView = inflater.inflate(R.layout.tab2_profile, container, false);
 
         String username = ParseUser.getCurrentUser().getUsername();
+
         final TextView username_textview = (TextView) rootView.findViewById(R.id.username);
+        final TextView email_textview = (TextView) rootView.findViewById(R.id.user_email);
         username_textview.setText(username);
+        if(ParseUser.getCurrentUser().getEmail() != null)
+            email_textview.setText(ParseUser.getCurrentUser().getEmail());
 
         final ImageView photo = (ImageView)rootView.findViewById(R.id.photo);
 
@@ -66,8 +70,10 @@ public class Tab2Profile extends Fragment {
             }
         });
 
-        final Button visits_button = rootView.findViewById(R.id.visits_button);
-        visits_button.setOnClickListener(new View.OnClickListener() {
+        final ImageView visits_icon = rootView.findViewById(R.id.visits_icon);
+        final TextView visits_text = rootView.findViewById(R.id.visits_text);
+
+        visits_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), VisitsActivity.class);
@@ -76,8 +82,28 @@ public class Tab2Profile extends Fragment {
             }
         });
 
-        final Button appointments_button = rootView.findViewById(R.id.appointments_button);
-        appointments_button.setOnClickListener(new View.OnClickListener() {
+        visits_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), VisitsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        final ImageView appointments_icon = rootView.findViewById(R.id.appointments_icon);
+        final TextView appointments_text = rootView.findViewById(R.id.appointments_text);
+
+        appointments_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScheduledActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        appointments_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ScheduledActivity.class);

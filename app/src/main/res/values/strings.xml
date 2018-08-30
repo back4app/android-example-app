@@ -123,8 +123,8 @@
 
 
     <!-- Profile -->
-    <string name="my_visits">My visits</string>
-    <string name="my_appointments">My appointments</string>
+    <string name="my_visits">MY VISITS</string>
+    <string name="my_appointments">MY APPOINTMENTS</string>
 
     <!-- Visits -->
     <string name="description">Description of service</string>
