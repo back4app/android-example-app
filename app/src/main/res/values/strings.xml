@@ -15,10 +15,10 @@
     <string name="barber">Barber</string>
     <string name="profile">Profile</string>
     <string name="contact">Contact us</string>
-    <string name="about">About us</string>
-    <string name="sale">Sale</string>
-    <string name="location">Location</string>
-    <string name="schedule">Schedule an appointment</string>
+    <string name="about">ABOUT US</string>
+    <string name="sale">SALE</string>
+    <string name="location">LOCATION</string>
+    <string name="schedule">SCHEDULE AN\nAPPOINTMENT</string>
     <string name="logout">Log Out</string>
     <string name="going">So, you\'re going…</string>
     <string name="bye">Ok, bye-bye then…</string>
@@ -150,7 +150,7 @@
     <string name="not_edited_appointment">Edition of appointment canceled.</string>
 
     <!-- About us -->
-    <string name="barber_description">Hair, beard and all services aimed at male\'s vanity make the Back4App Barber Shop network synonymous of excellence in barber shop.\n\nFounded in 1970, the Original Barber Shop is an environment inspired by traditional barber shops that has been adapted to the needs of modern man.\n\nBesides our high quality services, we have a unique product line and complete structure for fun and relaxation, with pool table, new and old video games, massage chair, open bar and more.</string>
+    <string name="barber_description">Hair, beard and all services aimed at male\'s vanity make the Back4App Barber Shop network synonymous of excellence in this field.\n\nFounded in 1970, the Back4App Barber Shop is an environment inspired by traditional barber shops that has been adapted to the needs of modern man.\n\nBesides our high quality services, we have a unique product line and complete structure for fun and relaxation, with pool table, new and old video games, massage chair, open bar and more.</string>
 
     <!-- Sale -->
     <string name="loading_sales">The available sales are being loaded.</string>
@@ -164,6 +164,7 @@
     <string name="dont_forget_changes">Don\'t forget changes in your next login.</string>
     <string name="sorry">Sorry…</string>
     <string name="message_unsuccessful_edition">Your changes couldn\'t be saved.\nTry again.</string>
+    <string name="edit">EDIT</string>
 
     <!-- Dialog Password -->
     <string name="insert_password">To edit your profile, please enter your login password.</string>

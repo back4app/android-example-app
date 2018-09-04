@@ -69,7 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        final Button signup_button = findViewById(R.id.signup_button);
+        final Button signup_button = findViewById(R.id.button);
+        signup_button.setText(getString(R.string.signup));
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //Setting up a progress dialog
                 final ProgressDialog dlg = new ProgressDialog(RegisterActivity.this);
-                dlg.setTitle(R.string.wait);
+                dlg.setTitle(getString(R.string.wait));
                 dlg.setMessage(getString(R.string.signing));
                 dlg.show();
 

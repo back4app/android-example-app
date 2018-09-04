@@ -118,8 +118,9 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        final Button signup_button = findViewById(R.id.signup_button);
-        signup_button.setOnClickListener(new View.OnClickListener() {
+        final Button edit_button = findViewById(R.id.button);
+        edit_button.setText(getString(R.string.edit));
+        edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Validating the log in data
