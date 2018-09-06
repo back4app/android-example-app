@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@drawable/background_wood"
+tools:context="com.example.back4app.barbershopapp.WelcomeActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="128dp"
+        app:srcCompat="@drawable/top" />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:background="@drawable/background_tools_light"
+    android:layout_height="475dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#61512a"
+            android:layout_marginTop="44dp"
+            android:textSize="40sp"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#61512a"
+            android:layout_marginTop="26dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome_message" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@drawable/button_border"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/login" />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_medium"
+            android:background="@drawable/button_black"
+            android:text="@string/register" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#61512a"
+            android:layout_marginTop="26dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/no_credit_card" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/footer" />
+
+    </LinearLayout>
+</LinearLayout>

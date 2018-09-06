@@ -19,8 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,6 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -70,43 +69,41 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".SchedulingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SchedulingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Tab1Barber" />
-
         <activity android:name=".Tab2Profile" />
-
         <activity android:name=".Tab3Contact" />
-
-        <activity android:name=".VisitsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".ScheduledActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".AboutUsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".EditProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".SaleActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".VisitsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ScheduledActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SaleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
+
 </manifest>

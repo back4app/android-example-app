@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.back4app.barbershopapp.MenuActivity$PlaceholderFragment">
+    tools:context="com.example.back4app.barbershopapp.MenuActivity$PlaceholderFragment"
+    android:background="@drawable/background_tools_light">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="750dp"
-        android:background="@drawable/gradientbackground"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -19,234 +19,172 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="21dp"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="46dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_person_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/name_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/name_input"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:textColor="@color/light_yellow"
-                                android:textSize="16sp"
-                                android:digits="qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ "
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_email_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/email_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/email_input"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:textColor="@color/light_yellow"
-                                android:inputType="textEmailAddress"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_subject_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/subject_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <Spinner
-                                android:id="@+id/subject_dropdown"
-                                android:layout_width="fill_parent"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_chat_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/message_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:src="@drawable/ic_person_black_24dp" />
 
                         <EditText
-                            android:id="@+id/message_input"
+                            android:id="@+id/name_input"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:textColor="@color/light_yellow"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:hint="@string/username_"
+                            android:textColorHint="#696969"
                             android:textSize="16sp"
-                            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ?.,;!()[]/\+-*^%$#@{}=?:{}~` "
-                            android:maxLines="10"
-                            android:textStyle="bold" />
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular"
+                            android:backgroundTint="@color/black"
+                            android:digits="qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ " />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
 
-                <Button
-                    android:id="@+id/send_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    android:text="@string/send"
-                    android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:src="@drawable/ic_email_black_24dp" />
+
+                        <EditText
+                            android:id="@+id/email_input"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="18dp"
+                            android:textColorHint="#696969"
+                            android:hint="@string/email_"
+                            android:layout_marginStart="18dp"
+                            android:inputType="textEmailAddress"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:src="@drawable/ic_subject_black_24dp" />
+
+                        <Spinner
+                            android:id="@+id/subject_dropdown"
+                            android:layout_width="fill_parent"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:src="@drawable/ic_chat_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginStart="18dp"
+                            android:text="@string/message_"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/message_input"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="82dp"
+                        android:layout_marginStart="82dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto_regular"
+                        android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ?.,;!()[]/\+-*^%$#@{}=?:{}~` "
+                        android:maxLines="10"
+                        android:textColorHint="#696969"
+                        android:hint="@string/write_message" />
+
+                    <Button
+                        android:id="@+id/send_button"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/button_black"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="34dp"
+                        android:text="@string/send"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/roboto_medium" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </RelativeLayout>

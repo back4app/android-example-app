@@ -177,17 +177,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });*/
 
-        final Button signup_button = findViewById(R.id.signup_button);
-        signup_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
-
         final TextView reset_password = findViewById(R.id.reset_password);
         reset_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,5 +307,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }*/
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 }

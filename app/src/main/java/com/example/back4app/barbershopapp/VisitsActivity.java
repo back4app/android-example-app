@@ -129,4 +129,14 @@ public class VisitsActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed () {
+        final Bundle bundle = new Bundle();
+        final Intent intent = new Intent(VisitsActivity.this, MenuActivity.class);
+        bundle.putString("TabNumber", "1");
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

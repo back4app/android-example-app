@@ -330,4 +330,11 @@ public class SchedulingActivity extends AppCompatActivity {
         AlertDialog ok = builder.create();
         ok.show();
     }
+
+    @Override
+    public void onBackPressed () {
+        Intent intent = new Intent(SchedulingActivity.this, MenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

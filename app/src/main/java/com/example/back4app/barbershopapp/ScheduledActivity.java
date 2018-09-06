@@ -46,7 +46,10 @@ public class ScheduledActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+                final Bundle bundle = new Bundle();
+                final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+                bundle.putString("TabNumber", "1");
+                intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -262,6 +265,16 @@ public class ScheduledActivity extends AppCompatActivity {
 
         AlertDialog ok = builder.create();
         ok.show();
+    }
+
+    @Override
+    public void onBackPressed () {
+        final Bundle bundle = new Bundle();
+        final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+        bundle.putString("TabNumber", "1");
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 }

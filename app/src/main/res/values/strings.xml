@@ -23,11 +23,15 @@
     <string name="going">So, you\'re going…</string>
     <string name="bye">Ok, bye-bye then…</string>
 
+    <!-- Welcome -->
+    <string name="welcome_message">This is the Back4App Barber Shop App Template made to help you to master Back4App\'s Serverless Platform! Let\'s get started!</string>
+    <string name="register">Register</string>
+    <string name="no_credit_card">No credit card required :)</string>
+
     <!-- Login -->
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="register">Register now!</string>
     <string name="please_insert">Please, insert</string>
     <string name="an_user">an username</string>
     <string name="and">and</string>
@@ -104,6 +108,7 @@
     <string name="message_">Message*</string>
     <string name="subject_">Subject*</string>
     <string name="subject">Subject</string>
+    <string name="write_message">Write your message here</string>
     <string name="send">Send</string>
     <string name="sending">Sending your message…</string>
     <string name="thanks">Thanks for your message!</string>
@@ -176,7 +181,6 @@
     <string name="error_password">Insert your password correctly to edit your profile.</string>
     <string name="edit_profile_successful">Edit your profile and save it.</string>
     <string name="invalid_password">Enter a valid password.</string>
-
 
 
 </resources>

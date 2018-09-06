@@ -218,4 +218,9 @@ public class MenuActivity extends AppCompatActivity {
         view.startAnimation(anim);
         view.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed () {
+        return;
+    }
 }

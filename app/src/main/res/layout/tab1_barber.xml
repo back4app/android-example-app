@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_tools_dark"
     tools:context="com.example.back4app.barbershopapp.MenuActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradientbackground"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -24,167 +24,46 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="27dp"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="27dp"
-                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="78dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/about_button"
+                    <ImageView
+                        android:id="@+id/about_us"
+                        android:src="@drawable/btn_about_us"
                         android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="center"
-                        card_view:cardBackgroundColor="@color/endgrey"
-                        card_view:cardCornerRadius="18dp">
+                        android:layout_height="160dp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:layout_marginTop="15dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/barber_icon" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/about"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/location_button"
+                    <ImageView
+                        android:id="@+id/location"
+                        android:src="@drawable/btn_location"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginStart="40dp"
                         android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="27dp"
-                        android:layout_marginStart="27dp"
-                        card_view:cardBackgroundColor="@color/endgrey"
-                        card_view:cardCornerRadius="18dp">
+                        android:layout_height="160dp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:layout_marginTop="15dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_location_on_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/location"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="27dp"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginRight="27dp"
-                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="40dp"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/schedule_button"
+                    <ImageView
+                        android:id="@+id/schedule"
+                        android:src="@drawable/btn_schedule"
                         android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="center"
-                        card_view:cardBackgroundColor="@color/endgrey"
-                        card_view:cardCornerRadius="18dp">
+                        android:layout_height="160dp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_schedule_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/schedule"
-                                android:layout_marginTop="10dp"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/sale_button"
+                    <ImageView
+                        android:id="@+id/deals"
+                        android:src="@drawable/btn_deals"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginStart="40dp"
                         android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="27dp"
-                        android:layout_marginStart="27dp"
-                        card_view:cardBackgroundColor="@color/endgrey"
-                        card_view:cardCornerRadius="18dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_monetization_on_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sale"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="10dp"
-                                android:textSize="15sp" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                        android:layout_height="160dp" />
                 </LinearLayout>
 
             </LinearLayout>

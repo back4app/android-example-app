@@ -55,6 +55,13 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
 
     }
 
+    @Override
+    public void onBackPressed () {
+        Intent intent = new Intent(LocationActivity.this, MenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

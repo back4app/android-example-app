@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class Tab1Barber extends Fragment{
     @Override
@@ -15,7 +16,7 @@ public class Tab1Barber extends Fragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab1_barber, container, false);
 
-        final CardView schedule_button = (CardView) rootView.findViewById(R.id.schedule_button);
+        final ImageView schedule_button = (ImageView) rootView.findViewById(R.id.schedule);
         schedule_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +26,7 @@ public class Tab1Barber extends Fragment{
             }
         });
 
-        final CardView about_button = (CardView) rootView.findViewById(R.id.about_button);
+        final ImageView about_button = (ImageView) rootView.findViewById(R.id.about_us);
         about_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +36,7 @@ public class Tab1Barber extends Fragment{
             }
         });
 
-        final CardView sale_button = (CardView) rootView.findViewById(R.id.sale_button);
+        final ImageView sale_button = (ImageView) rootView.findViewById(R.id.deals);
         sale_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +46,7 @@ public class Tab1Barber extends Fragment{
             }
         });
 
-        final CardView location_button = (CardView) rootView.findViewById(R.id.location_button);
+        final ImageView location_button = (ImageView) rootView.findViewById(R.id.location);
         location_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
