@@ -28,7 +28,7 @@ public class SaleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale);
 
-        final Button back_button = findViewById(R.id.back_button);
+        final ImageView back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

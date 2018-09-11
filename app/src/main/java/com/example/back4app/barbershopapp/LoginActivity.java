@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        final Button twitter_login_button = findViewById(R.id.twitter_button);
+        final ImageView twitter_login_button = findViewById(R.id.twitter_button);
         twitter_login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /*final Button facebook_button = findViewById(R.id.facebook_button);
+        /*final ImageView facebook_button = findViewById(R.id.facebook_button);
         facebook_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

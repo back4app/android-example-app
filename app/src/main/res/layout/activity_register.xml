@@ -1,277 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.back4app.barbershopapp.Tab2Profile"
-    android:orientation="vertical">
+    android:background="@drawable/background_wood"
+    tools:context="com.example.back4app.barbershopapp.RegisterActivity" >
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground"
-    android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="128dp"
+            app:srcCompat="@drawable/top" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="750dp">
+            android:layout_height="840dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:background="@drawable/product_logo_144dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/background_tools_light"
+                android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/back"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="44dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="40sp"
+                    android:textColor="#61512a"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_horizontal"
+                    android:text="@string/register" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginRight="26dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/facebook_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/btn_facebook"/>
+                    <ImageView
+                        android:id="@+id/twitter_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginLeft="80dp"
+                        android:src="@drawable/btn_twitter" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/div_or"/>
 
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:src="@drawable/ic_account_circle_black_24dp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="205dp"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="28dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:hint="@string/username_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                </RelativeLayout>
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_person_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/username_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/username"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:textColor="@color/light_yellow"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="28dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:inputType="textEmailAddress"
+                        android:hint="@string/email_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                </RelativeLayout>
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_email_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/email_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/email"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:inputType="textEmailAddress"
-                                android:textColor="@color/light_yellow"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="28dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:inputType="textPassword"
+                        android:hint="@string/password_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                </RelativeLayout>
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_lock_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/password_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/password"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:inputType="textPassword"
-                                android:textColor="@color/light_yellow"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="390dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    card_view:cardBackgroundColor="@color/endgrey"
-                    card_view:cardCornerRadius="18dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="28dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/passwordAgain"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:inputType="textPassword"
+                        android:hint="@string/password_again_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="27dp"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginRight="27dp"
-                            android:layout_marginStart="27dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_lock_black_24dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:text="@string/password_again_"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <EditText
-                                android:id="@+id/passwordAgain"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginStart="12dp"
-                                android:inputType="textPassword"
-                                android:textColor="@color/light_yellow"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
                 <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/register_button"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="21dp"
-                    android:textSize="16sp" />
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_black"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/register" />
 
             </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>
+
+
+
+
+
+
+
+
+

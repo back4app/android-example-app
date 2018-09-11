@@ -40,16 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         Parse.initialize(this);
 
-        final Button back_button = findViewById(R.id.back_button);
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
         usernameView = (EditText) findViewById(R.id.username);
         emailView = (EditText) findViewById(R.id.email);
         passwordView = (EditText) findViewById(R.id.password);
@@ -69,9 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        final Button signup_button = findViewById(R.id.button);
-        signup_button.setText(getString(R.string.signup));
-        signup_button.setOnClickListener(new View.OnClickListener() {
+        final Button register_button = findViewById(R.id.register_button);
+        register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Validating the log in data

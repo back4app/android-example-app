@@ -42,10 +42,10 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_edit_profile);
         Parse.initialize(this);
 
-        final Button back_button = findViewById(R.id.back_button);
+        final ImageView back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +118,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        final Button edit_button = findViewById(R.id.button);
-        edit_button.setText(getString(R.string.edit));
+        final Button edit_button = findViewById(R.id.edit_button);
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

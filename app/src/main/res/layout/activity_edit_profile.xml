@@ -4,20 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_wood"
-    tools:context="com.example.back4app.barbershopapp.LoginActivity" >
+    android:background="@drawable/background_tools_light"
+    tools:context="com.example.back4app.barbershopapp.EditProfileActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_height="128dp"
-            app:srcCompat="@drawable/top" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,55 +19,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:background="@drawable/background_tools_light"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#61512a"
-                    android:layout_marginTop="44dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:textSize="40sp"
-                    android:fontFamily="@font/roboto_light"
-                    android:gravity="center_horizontal"
-                    android:text="@string/login" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginStart="27dp"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginEnd="26dp"
-                    android:layout_marginRight="26dp"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/facebook_button"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@drawable/btn_facebook"/>
-                    <ImageView
-                        android:id="@+id/twitter_button"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginStart="80dp"
-                        android:layout_marginLeft="80dp"
-                        android:src="@drawable/btn_twitter" />
-
-                </LinearLayout>
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/back" />
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/div_or"/>
+                    android:id="@+id/photo"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_horizontal"
+
+                    android:src="@drawable/ic_account_circle_black_24dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -84,7 +47,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="28dp">
 
                     <EditText
@@ -96,7 +59,35 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:hint="@string/username"
+                        android:hint="@string/username_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="28dp">
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:inputType="textEmailAddress"
+                        android:hint="@string/email_"
                         android:textColorHint="#696969"
                         android:textSize="16sp"
                         android:textColor="#61512a"
@@ -124,7 +115,35 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
                         android:inputType="textPassword"
-                        android:hint="@string/password"
+                        android:hint="@string/password_"
+                        android:textColorHint="#696969"
+                        android:textSize="16sp"
+                        android:textColor="#61512a"
+                        android:fontFamily="@font/roboto_regular" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/button_border"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="28dp">
+
+                    <EditText
+                        android:id="@+id/passwordAgain"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:inputType="textPassword"
+                        android:hint="@string/password_again_"
                         android:textColorHint="#696969"
                         android:textSize="16sp"
                         android:textColor="#61512a"
@@ -133,7 +152,7 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/login_button"
+                    android:id="@+id/edit_button"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginEnd="16dp"
@@ -145,19 +164,7 @@
                     android:textColor="@color/white"
                     android:background="@drawable/button_black"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/login" />
-
-                <TextView
-                    android:id="@+id/reset_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#61512a"
-                    android:layout_marginTop="26dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:gravity="center_horizontal"
-                    android:text="@string/reset_password" />
-
+                    android:text="@string/edit_profile" />
 
             </LinearLayout>
 

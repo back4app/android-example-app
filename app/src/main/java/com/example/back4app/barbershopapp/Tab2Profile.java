@@ -70,10 +70,8 @@ public class Tab2Profile extends Fragment {
             }
         });
 
-        final ImageView visits_icon = rootView.findViewById(R.id.visits_icon);
-        final TextView visits_text = rootView.findViewById(R.id.visits_text);
-
-        visits_icon.setOnClickListener(new View.OnClickListener() {
+        final ImageView history_button = rootView.findViewById(R.id.history);
+        history_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), VisitsActivity.class);
@@ -82,28 +80,9 @@ public class Tab2Profile extends Fragment {
             }
         });
 
-        visits_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), VisitsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
 
-        final ImageView appointments_icon = rootView.findViewById(R.id.appointments_icon);
-        final TextView appointments_text = rootView.findViewById(R.id.appointments_text);
-
-        appointments_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduledActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
-        appointments_text.setOnClickListener(new View.OnClickListener() {
+        final ImageView appointments_button = rootView.findViewById(R.id.appointments);
+        appointments_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ScheduledActivity.class);

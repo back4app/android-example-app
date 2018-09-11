@@ -51,7 +51,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="18dp"
                             android:layout_marginStart="18dp"
-                            android:hint="@string/username_"
+                            android:hint="@string/name_"
                             android:textColorHint="#696969"
                             android:textSize="16sp"
                             android:textColor="@color/black"

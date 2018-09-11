@@ -55,7 +55,6 @@ public class MenuActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fadeIn(toolbar);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -210,13 +209,6 @@ public class MenuActivity extends AppCompatActivity {
         }else if(tab.equals("2")){
             mViewPager.setCurrentItem(2);
         }
-    }
-
-    private void fadeIn(View view){
-        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(1500);
-        view.startAnimation(anim);
-        view.setVisibility(View.VISIBLE);
     }
 
     @Override
