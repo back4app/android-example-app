@@ -1,77 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.back4app.barbershopapp.SchedulingActivity">
+    tools:context="com.example.back4app.barbershopapp.SchedulingActivity"
+    android:background="@drawable/background_tools_light">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/back_button"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="21dp"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/schedule_appointment"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/back"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginBottom="21dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/select_options_appointment"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/service" />
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="27dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/services_dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/barber_icon" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/services_dropdown"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/price"/>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="#61512a" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/professional"  />
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/professionals_dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_face_black_24dp" />
 
-        <TextView
+            <Spinner
+                android:id="@+id/professionals_dropdown"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/date"  />
+            android:layout_marginEnd="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/dates_dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_today_black_24dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/time"  />
+            <Spinner
+                android:id="@+id/dates_dropdown"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_watch_later_black_24dp" />
 
         <Spinner
             android:id="@+id/time_dropdown"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/add_button"
-            android:layout_width="match_parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_black"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_appointment" />
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="@string/add_appointment"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_medium" />
+
     </LinearLayout>
 </ScrollView>
+
+
+
+

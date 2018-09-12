@@ -131,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(RegisterActivity.this);
+                final ProgressDialog dlg = new ProgressDialog(RegisterActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(getString(R.string.wait));
                 dlg.setMessage(getString(R.string.signing));
                 dlg.show();
@@ -205,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void alertDisplayer(String title,String message, final boolean error, final String username){
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

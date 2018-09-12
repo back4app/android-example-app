@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class SchedulingActivity extends AppCompatActivity {
 
 
 
-        final Button back_button = findViewById(R.id.back_button);
+        final ImageView back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,7 +311,7 @@ public class SchedulingActivity extends AppCompatActivity {
     }
 
     private void alertDisplayer(String title, String message, final String service, final String professional, final String date, final String time){
-        AlertDialog.Builder builder = new AlertDialog.Builder(SchedulingActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(SchedulingActivity.this, R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

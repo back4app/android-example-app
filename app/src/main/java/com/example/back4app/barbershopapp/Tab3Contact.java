@@ -113,7 +113,7 @@ public class Tab3Contact extends Fragment {
                 String userDoubt = message.getText().toString();
 
                 //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(getActivity());
+                final ProgressDialog dlg = new ProgressDialog(getActivity(), R.style.AlertDialogTheme);
                 dlg.setTitle(getString(R.string.wait));
                 dlg.setMessage(getString(R.string.sending));
                 dlg.show();
@@ -150,7 +150,7 @@ public class Tab3Contact extends Fragment {
     }
 
     private void alertDisplayer(String title,String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(LoginActivity.this);
+                final ProgressDialog dlg = new ProgressDialog(LoginActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(getString(R.string.wait));
                 dlg.setMessage(getString(R.string.logging));
                 dlg.show();
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(LoginActivity.this);
+                final ProgressDialog dlg = new ProgressDialog(LoginActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(getString(R.string.wait));
                 dlg.setMessage(getString(R.string.logging));
                 dlg.show();
@@ -285,7 +285,7 @@ public class LoginActivity extends AppCompatActivity {
     }*/
 
     private void alertDisplayer(String title, String message, final boolean error) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

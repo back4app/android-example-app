@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFF</color>
     <color name="graylight">#fafafa</color>
-    <color name="startgrey">#DCDCDC</color>
-    <color name="endgrey">#696969</color>
+    <color name="startgray">#DCDCDC</color>
+    <color name="endgray">#696969</color>
     <color name="white">#FFF</color>
-    <color name="light_yellow">#ffff80</color>
     <color name="black">#000000</color>
+    <color name="pink">#FF1493</color>
 </resources>

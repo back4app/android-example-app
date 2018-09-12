@@ -1,5 +1,6 @@
 package com.example.back4app.barbershopapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
@@ -37,6 +41,54 @@ public class Tab2Profile extends Fragment {
             email_textview.setText(ParseUser.getCurrentUser().getEmail());
 
         final ImageView photo = (ImageView)rootView.findViewById(R.id.photo);
+
+        final ImageView edit_button = (ImageView) rootView.findViewById(R.id.edit_button);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.dialog_password, null);
+                final EditText mPassword = (EditText) mView.findViewById(R.id.password);
+                Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+                Button mCancel = (Button) mView.findViewById(R.id.cancel);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                mConfirm.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        if(!mPassword.getText().toString().isEmpty()){
+                            ParseUser.logInInBackground(ParseUser.getCurrentUser().getUsername(), mPassword.getText().toString(), new LogInCallback() {
+                                @Override
+                                public void done(ParseUser parseUser, ParseException e) {
+                                    if (e == null && parseUser != null) {
+                                        Toast.makeText(getActivity(), getString(R.string.edit_profile_successful), Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(getActivity(), getString(R.string.invalid_password), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+                        }
+                        else{
+                            Toast.makeText(getActivity(), getString(R.string.error_empty_password), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                mCancel.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereEqualTo("username", username);

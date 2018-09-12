@@ -9,185 +9,168 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="750dp"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="46dp"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="750dp">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_person_black_24dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="46dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:src="@drawable/ic_person_black_24dp" />
-
-                        <EditText
-                            android:id="@+id/name_input"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:hint="@string/name_"
-                            android:textColorHint="#696969"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto_regular"
-                            android:backgroundTint="@color/black"
-                            android:digits="qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ " />
-                    </LinearLayout>
+            <EditText
+                android:id="@+id/name_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:hint="@string/name_"
+                android:textColorHint="#696969"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:backgroundTint="@color/black"
+                android:digits="qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ " />
+        </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:src="@drawable/ic_email_black_24dp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_email_black_24dp" />
 
-                        <EditText
-                            android:id="@+id/email_input"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="18dp"
-                            android:textColorHint="#696969"
-                            android:hint="@string/email_"
-                            android:layout_marginStart="18dp"
-                            android:inputType="textEmailAddress"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto_regular" />
-                    </LinearLayout>
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:textColorHint="#696969"
+                android:hint="@string/email_"
+                android:layout_marginStart="18dp"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:src="@drawable/ic_subject_black_24dp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_subject_black_24dp" />
 
-                        <Spinner
-                            android:id="@+id/subject_dropdown"
-                            android:layout_width="fill_parent"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto_regular"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+            <Spinner
+                android:id="@+id/subject_dropdown"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:src="@drawable/ic_chat_black_24dp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_chat_black_24dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="18dp"
-                            android:layout_marginStart="18dp"
-                            android:text="@string/message_"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto_regular" />
-                    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/message_"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/message_input"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="82dp"
-                        android:layout_marginStart="82dp"
-                        android:layout_marginTop="8dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/roboto_regular"
-                        android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ?.,;!()[]/\+-*^%$#@{}=?:{}~` "
-                        android:maxLines="10"
-                        android:textColorHint="#696969"
-                        android:hint="@string/write_message" />
+        <EditText
+            android:id="@+id/message_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="82dp"
+            android:layout_marginStart="82dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNMáãçéõóíúÁÃÇÉÕÓÍÚ?.,;!()[]/\+-*^%$#@{}=?:{}~` "
+            android:maxLines="10"
+            android:textColorHint="#696969"
+            android:hint="@string/write_message" />
 
-                    <Button
-                        android:id="@+id/send_button"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/button_black"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="34dp"
-                        android:text="@string/send"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/roboto_medium" />
+        <Button
+            android:id="@+id/send_button"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_black"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="34dp"
+            android:text="@string/send"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_medium" />
 
-                </LinearLayout>
-
-            </LinearLayout>
-        </RelativeLayout>
     </LinearLayout>
+
 </ScrollView>
 

@@ -185,7 +185,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void alertDisplayer(String title,String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this, R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

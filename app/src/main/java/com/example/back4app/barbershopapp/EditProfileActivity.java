@@ -68,7 +68,7 @@ public class EditProfileActivity extends AppCompatActivity {
         final String old_username = ParseUser.getCurrentUser().getUsername();
 
         //Setting up a progress dialog
-        final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this);
+        final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this, R.style.AlertDialogTheme);
         dlg.setTitle(R.string.wait);
         dlg.setMessage(getString(R.string.loading_profile));
         dlg.show();
@@ -190,7 +190,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
 
                 //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this);
+                final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(R.string.wait);
                 dlg.setMessage(getString(R.string.editing));
                 dlg.show();
@@ -321,7 +321,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void alertDisplayer(String title,String message, final boolean error, final String username){
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this, R.style.AlertDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

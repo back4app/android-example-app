@@ -41,7 +41,7 @@ public class SaleActivity extends AppCompatActivity {
         final ImageView photo = (ImageView) findViewById(R.id.sale);
 
         //Setting up a progress dialog
-        final ProgressDialog dlg = new ProgressDialog(SaleActivity.this);
+        final ProgressDialog dlg = new ProgressDialog(SaleActivity.this, R.style.AlertDialogTheme);
         dlg.setTitle(R.string.wait);
         dlg.setMessage(getString(R.string.loading_sales));
         dlg.show();

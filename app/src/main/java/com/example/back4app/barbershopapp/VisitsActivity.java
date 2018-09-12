@@ -41,10 +41,10 @@ public class VisitsActivity extends AppCompatActivity {
         final TextView description = (TextView) findViewById(R.id.description);
         final ImageView photo = (ImageView)findViewById(R.id.service_photo);
 
-        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.nullphoto);
+        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.nullphoto);
         photo.setImageBitmap(bitmap);
 
-        final Button back_button = findViewById(R.id.back_button);
+        final ImageView back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +58,7 @@ public class VisitsActivity extends AppCompatActivity {
         });
 
         visits = new ArrayList<>();
-        visits.add(getString(R.string.visits));
+        visits.add(getString(R.string.select_date));
         final Spinner spinner_visits = (Spinner) findViewById(R.id.visits_dropdown);
         final ArrayAdapter<String> spinner_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, visits);
         spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,7 +67,7 @@ public class VisitsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = parent.getItemAtPosition(position).toString();
-                if (!selected.equals(getString(R.string.visits))) {
+                if (!selected.equals(getString(R.string.select_date))) {
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Visits");
                     query.whereEqualTo("Date", selected);
                     query.setLimit(1);
@@ -95,7 +95,6 @@ public class VisitsActivity extends AppCompatActivity {
                                 }
                                 else{
                                     photo.setImageBitmap(bitmap);
-
                                 }
 
                             } else {
@@ -104,6 +103,15 @@ public class VisitsActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+                    parent.setSelection(0);
+                }
+                else{
+                    service.setText("");
+                    professional.setText("");
+                    date.setText("");
+                    description.setText("");
+                    photo.setImageBitmap(bitmap);
                 }
             }
             @Override
