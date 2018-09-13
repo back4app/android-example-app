@@ -1,5 +1,7 @@
 package com.example.back4app.barbershopapp;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -188,6 +190,11 @@ public class LoginActivity extends AppCompatActivity {
                 Button mConfirm = (Button) mView.findViewById(R.id.confirm);
                 Button mCancel = (Button) mView.findViewById(R.id.cancel);
 
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
                 mConfirm.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -232,15 +239,10 @@ public class LoginActivity extends AppCompatActivity {
                 mCancel.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        dialog.dismiss();
                     }
                 });
 
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
-                dialog.show();
             }
         });
     }
@@ -285,22 +287,32 @@ public class LoginActivity extends AppCompatActivity {
     }*/
 
     private void alertDisplayer(String title, String message, final boolean error) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogTheme)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        if (!error) {
-                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    }
-                });
-        AlertDialog ok = builder.create();
-        ok.show();
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_default, null);
+        final TextView title_textview = (TextView) mView.findViewById(R.id.title);
+        final TextView message_textview = (TextView) mView.findViewById(R.id.message);
+        Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+
+        title_textview.setText(title);
+        message_textview.setText(message);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        mConfirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (!error) {
+                    Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
     /*@Override

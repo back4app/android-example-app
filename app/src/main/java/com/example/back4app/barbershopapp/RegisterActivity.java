@@ -4,14 +4,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -33,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText passwordView;
     private EditText passwordAgainView;
     private ImageView photo;
+    private ImageView edit_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
         photo.setImageBitmap(bitmap);
 
         photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_photo)), 1);
+            }
+        });
+
+        edit_button = (ImageView) findViewById(R.id.edit_button);
+        edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -165,16 +181,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         dlg.dismiss();
                                         if (e == null) {
                                             ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false, usernameView.getText().toString());
+                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false);
                                         } else {
                                             ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true);
                                         }
                                     }
                                 });
                             }
                             else{
-                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, usernameView.getText().toString());
+                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true);
                             }
 
                         }
@@ -204,23 +220,31 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void alertDisplayer(String title,String message, final boolean error, final String username){
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this, R.style.AlertDialogTheme)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        if(!error) {
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    }
-                });
-        AlertDialog ok = builder.create();
-        ok.show();
+    private void alertDisplayer(String title,String message, final boolean error){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegisterActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_default, null);
+        final TextView title_textview = (TextView) mView.findViewById(R.id.title);
+        final TextView message_textview = (TextView) mView.findViewById(R.id.message);
+        Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+
+        title_textview.setText(title);
+        message_textview.setText(message);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        mConfirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (!error) {
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void onActivityResult(int reqCode, int resCode, Intent data){

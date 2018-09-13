@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -277,20 +280,20 @@ public class EditProfileActivity extends AppCompatActivity {
                                             }
 
                                             if(!old_email.equals(emailView.getText().toString())) {
-                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.verify_edited_email), false, usernameView.getText().toString());
+                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.verify_edited_email), false);
                                             }
                                             else{
-                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.dont_forget_changes), false, usernameView.getText().toString());
+                                                alertDisplayer(getString(R.string.edit_profile_finished), getString(R.string.dont_forget_changes), false);
                                             }
 
                                         } else {
-                                            alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true, usernameView.getText().toString());
+                                            alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true);
                                         }
                                     }
                                 });
                             }
                             else{
-                                alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true, usernameView.getText().toString());
+                                alertDisplayer(getString(R.string.sorry), getString(R.string.message_unsuccessful_edition), true);
                             }
 
                         }
@@ -320,23 +323,31 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void alertDisplayer(String title,String message, final boolean error, final String username){
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this, R.style.AlertDialogTheme)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        if(!error) {
-                            Intent intent = new Intent(EditProfileActivity.this, MenuActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    }
-                });
-        AlertDialog ok = builder.create();
-        ok.show();
+    private void alertDisplayer(String title,String message, final boolean error){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditProfileActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_default, null);
+        final TextView title_textview = (TextView) mView.findViewById(R.id.title);
+        final TextView message_textview = (TextView) mView.findViewById(R.id.message);
+        Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+
+        title_textview.setText(title);
+        message_textview.setText(message);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        mConfirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (!error) {
+                    Intent intent = new Intent(EditProfileActivity.this, MenuActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void onActivityResult(int reqCode, int resCode, Intent data){

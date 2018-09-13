@@ -3,6 +3,8 @@ package com.example.back4app.barbershopapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -181,91 +183,93 @@ public class ScheduledActivity extends AppCompatActivity {
     }
 
     private void alertDisplayerToDelete(String title, String message, final String service, final String professional, final String date, final String time, final ParseObject object){
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScheduledActivity.this, R.style.AlertDialogTheme)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        final Bundle bundle = new Bundle();
-                        final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
-                        bundle.putString("TabNumber", "1");
-                        intent.putExtras(bundle);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ScheduledActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_yes_no, null);
+        final TextView title_textview = (TextView) mView.findViewById(R.id.title);
+        final TextView message_textview = (TextView) mView.findViewById(R.id.message);
+        Button mConfirm = (Button) mView.findViewById(R.id.confirm);
+        Button mCancel = (Button) mView.findViewById(R.id.cancel);
+
+        title_textview.setText(title);
+        message_textview.setText(message);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        mConfirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                final Bundle bundle = new Bundle();
+                final Intent intent = new Intent(ScheduledActivity.this, MenuActivity.class);
+                bundle.putString("TabNumber", "1");
+                intent.putExtras(bundle);
 
 
-                        ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
-                        query_professional_schedule.whereEqualTo("Name", professional);
-                        query_professional_schedule.whereEqualTo("Date", date);
-                        query_professional_schedule.setLimit(1);
-                        query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
-                            public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
-                                if (e == null && professionals_schedule_info.size() > 0) {
-                                    List<String> alreadyScheduled = new ArrayList<>();
-                                    alreadyScheduled = professionals_schedule_info.get(0).getList("Already_Scheduled");
-                                    alreadyScheduled.remove(time);
-                                    professionals_schedule_info.get(0).put("Already_Scheduled", alreadyScheduled);
-                                    professionals_schedule_info.get(0).saveInBackground();
-                                } else {
-                                    Log.d(":(", "Error: " + e.getMessage());
-                                }
-                            }
-                        });
-
-                        if(object != null) {
-                            object.deleteInBackground();
+                ParseQuery<ParseObject> query_professional_schedule = ParseQuery.getQuery("Professionals_Schedule");
+                query_professional_schedule.whereEqualTo("Name", professional);
+                query_professional_schedule.whereEqualTo("Date", date);
+                query_professional_schedule.setLimit(1);
+                query_professional_schedule.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> professionals_schedule_info, ParseException e) {
+                        if (e == null && professionals_schedule_info.size() > 0) {
+                            List<String> alreadyScheduled = new ArrayList<>();
+                            alreadyScheduled = professionals_schedule_info.get(0).getList("Already_Scheduled");
+                            alreadyScheduled.remove(time);
+                            professionals_schedule_info.get(0).put("Already_Scheduled", alreadyScheduled);
+                            professionals_schedule_info.get(0).saveInBackground();
+                        } else {
+                            Log.d(":(", "Error");
                         }
-                        else{
-                            ParseQuery<ParseObject> query_object = ParseQuery.getQuery("Appointments");
-                            query_object.whereEqualTo("Appointment_Service", service);
-                            query_object.whereEqualTo("Appointment_Professional", professional);
-                            query_object.whereEqualTo("Appointment_Date", date);
-                            query_object.whereEqualTo("Appointment_Time", time);
-                            query_object.setLimit(1);
-                            query_object.findInBackground(new FindCallback<ParseObject>() {
-                                public void done(List<ParseObject> objects, ParseException e) {
-                                    if (e == null & objects.size() > 0) {
-                                        objects.get(0).deleteInBackground();
-
-                                    } else {
-                                        Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.putExtra("service", service);
-                                        intent.putExtra("professional", professional);
-                                        intent.putExtra("date", date);
-                                        intent.putExtra("time", time);
-                                        intent.putExtra("object", object);
-                                        Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
-                                        startActivity(intent);
-                                    }
-                                }
-                            });
-
-                        }
-
-                        Toast.makeText(ScheduledActivity.this, getString(R.string.deleted_appointment), Toast.LENGTH_LONG).show();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("service", service);
-                        intent.putExtra("professional", professional);
-                        intent.putExtra("date", date);
-                        intent.putExtra("time", time);
-                        intent.putExtra("object", object);
-                        Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
-                        startActivity(intent);
                     }
                 });
 
-        AlertDialog ok = builder.create();
-        ok.show();
+                if(object != null) {
+                    object.deleteInBackground();
+                }
+                else{
+                    ParseQuery<ParseObject> query_object = ParseQuery.getQuery("Appointments");
+                    query_object.whereEqualTo("Appointment_Service", service);
+                    query_object.whereEqualTo("Appointment_Professional", professional);
+                    query_object.whereEqualTo("Appointment_Date", date);
+                    query_object.whereEqualTo("Appointment_Time", time);
+                    query_object.setLimit(1);
+                    query_object.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if (e == null & objects.size() > 0) {
+                                objects.get(0).deleteInBackground();
+
+                            } else {
+                                Intent intent = new Intent(ScheduledActivity.this, ScheduledActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("service", service);
+                                intent.putExtra("professional", professional);
+                                intent.putExtra("date", date);
+                                intent.putExtra("time", time);
+                                intent.putExtra("object", object);
+                                Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
+                                startActivity(intent);
+                            }
+                        }
+                    });
+
+                }
+
+                Toast.makeText(ScheduledActivity.this, getString(R.string.deleted_appointment), Toast.LENGTH_LONG).show();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                Toast.makeText(ScheduledActivity.this, getString(R.string.not_deleted_appointment), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override

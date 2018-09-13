@@ -21,7 +21,8 @@
     <string name="schedule">SCHEDULE AN\nAPPOINTMENT</string>
     <string name="logout">Log Out</string>
     <string name="going">So, you\'re going…</string>
-    <string name="bye">Ok, bye-bye then…</string>
+    <string name="bye">Bye-bye, then!</string>
+    <string name="ok">OK</string>
 
     <!-- Welcome -->
     <string name="welcome_message">This is the Back4App Barber Shop App Template made to help you to master Back4App\'s Serverless Platform!\nLet\'s get started!</string>
@@ -45,7 +46,7 @@
     <string name="sorry_cant_login">It wasn\'t possible to login, try again.</string>
     <string name="verify_email">Please, verify your email first.</string>
     <string name="reset_password">Reset your password</string>
-    <string name="really_reset_password">If you really want to reset your password, insert the email associated to your account and click on the CONFIRM button.\nAfter that, an email will be sent to you in order to reset your password. </string>
+    <string name="really_reset_password">If you really want to reset your password, insert the email associated to your account and click on the CONFIRM button.</string>
     <string name="error_user_not_found">We couldn\'t find a user associated to this email. Try again.</string>
     <string name="reset_password_sucessful">An email was successfully sent to you with reset instructions.</string>
     <string name="reset_password_unsucessful">Something went wrong. Try again.</string>
