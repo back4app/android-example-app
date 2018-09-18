@@ -82,7 +82,10 @@
 
 
     <!-- Scheduling and scheduled -->
+    <string name="delete_appointment">  Delete\nappointment  </string>
+    <string name="add_another_appointment">  Add another\nappointment  </string>
     <string name="select_service">Select a service</string>
+    <string name="select_options_scheduled">Select the service and date from one of your scheduled appointments and check if it is correct. If it isn't, you can delete it.</string>
     <string name="select_professional">Select your professional</string>
     <string name="select_date">Select a date</string>
     <string name="select_time">Select a time</string>
@@ -110,6 +113,7 @@
     <string name="really_want_to_edit">Are you sure you want to edit this appointment?</string>
     <string name="not_edited_appointment">Edition of appointment canceled.</string>
     <string name="select_options_appointment">Select the best options to your next appointment in Back4App Barber Shop and don't worry about anything else!</string>
+    <string name="appointments">Appointments</string>
 
     <!-- Location -->
     <string name="select_shop">Select a barber shop</string>

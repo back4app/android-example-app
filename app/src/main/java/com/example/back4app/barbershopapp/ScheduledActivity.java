@@ -45,7 +45,7 @@ public class ScheduledActivity extends AppCompatActivity {
         final TextView time_textview = (TextView) findViewById(R.id.time_textview);
         final List<ParseObject> client_appointments = new ArrayList<>();
 
-        final Button back_button = findViewById(R.id.back_button);
+        final ImageView back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +84,7 @@ public class ScheduledActivity extends AppCompatActivity {
 
 
         // services dropdown
-        services_list.add(getString(R.string.other_scheduled_services));
+        services_list.add(getString(R.string.select_service));
         final Spinner spinner_service = (Spinner) findViewById(R.id.services_dropdown);
         final ArrayAdapter<String> spinner_service_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, services_list);
         spinner_service_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -134,9 +134,9 @@ public class ScheduledActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent_service, View view_service, int position_service, long id_service) {
                 String selected_service = parent_service.getItemAtPosition(position_service).toString();
-                if (!selected_service.equals(R.string.other_scheduled_services)) {
+                if (!selected_service.equals(R.string.select_service)) {
                     spinner_dates_adapter.clear();
-                    dates_list.add(getString(R.string.scheduled_dates));
+                    dates_list.add(getString(R.string.select_date));
                     spinner_dates_adapter.notifyDataSetChanged();
 
                     for(int i = 0; i < client_appointments.size(); i++) {
@@ -145,7 +145,7 @@ public class ScheduledActivity extends AppCompatActivity {
                                 spinner_dates_adapter.add(client_appointments.get(i).getString("Appointment_Date"));
                         }
                         spinner_dates_adapter.notifyDataSetChanged();
-
+                        spinner_dates.setSelection(0);
                     }
                 }
             }
@@ -165,8 +165,8 @@ public class ScheduledActivity extends AppCompatActivity {
 
                             objectOnTheScreen = client_appointments.get(i);
 
-                            services_textview.setText(client_appointments.get(i).getString("Appointment_Professional"));
-                            professionals_textview.setText(client_appointments.get(i).getString("Appointment_Service"));
+                            services_textview.setText(client_appointments.get(i).getString("Appointment_Service"));
+                            professionals_textview.setText(client_appointments.get(i).getString("Appointment_Professional"));
                             dates_textview.setText(client_appointments.get(i).getString("Appointment_Date"));
                             time_textview.setText(client_appointments.get(i).getString("Appointment_Time"));
                         }

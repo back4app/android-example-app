@@ -131,11 +131,13 @@ public class SchedulingActivity extends AppCompatActivity {
                             for(i = 0; i < professionals.size(); i++) {
                                 spinner_professionals_adapter.add(professionals.get(i));
                             }
-                            spinner_professionals_adapter.notifyDataSetChanged();
 
                             break;
                         }
                     }
+
+                    spinner_professionals_adapter.notifyDataSetChanged();
+                    spinner_professionals.setSelection(0);
                 }
             }
             @Override
@@ -169,6 +171,7 @@ public class SchedulingActivity extends AppCompatActivity {
                                 }
 
                                 spinner_dates_adapter.notifyDataSetChanged();
+                                spinner_dates.setSelection(0);
                             } else {
                                 Log.d(":(", "error");
                             }
@@ -224,10 +227,11 @@ public class SchedulingActivity extends AppCompatActivity {
                                 }
                             }
 
-                            spinner_time_adapter.notifyDataSetChanged();
-
                             break;
                         }
+
+                        spinner_time_adapter.notifyDataSetChanged();
+                        spinner_time.setSelection(0);
                     }
                 }
             }
