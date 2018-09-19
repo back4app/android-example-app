@@ -36,16 +36,15 @@ dependencies {
     implementation fileTree(include: 'Parse-*.jar', dir: 'libs')
     implementation fileTree(include: 'ParseFacebookUtilsV4-*.jar', dir: 'libs')
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.parse:parsetwitterutils-android:1.10.6'
-    //implementation 'com.github.parse-community:ParseTwitterUtils-Android:latest.version.here'
+    //implementation 'com.github.parse-community:ParseFacebookUtils-Android:1.18.4'
 }
 
 
 
 repositories {
     mavenCentral()
-    jcenter()
-    maven {
-        url "http://maven.google.com"
+    jcenter {
+        url "http://jcenter.bintray.com/"
     }
+    maven { url 'https://jitpack.io' }
 }

@@ -19,13 +19,16 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SchedulingActivity extends AppCompatActivity {
 
@@ -299,12 +302,19 @@ public class SchedulingActivity extends AppCompatActivity {
                     Toast.makeText(SchedulingActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
                     return;
                 } else {
+                Map<String, String> dimensions = new HashMap<String, String>();
+                // Define ranges to bucket data points into meaningful segments
+                dimensions.put("service", spinner_service.getSelectedItem().toString());
+                dimensions.put("professional", spinner_professionals.getSelectedItem().toString());
+
+
                     final ParseObject appointment = new ParseObject("Appointments");
                     appointment.put("Client", ParseUser.getCurrentUser().getUsername());
                     appointment.put("Appointment_Service", spinner_service.getSelectedItem().toString());
                     appointment.put("Appointment_Professional", spinner_professionals.getSelectedItem().toString());
                     appointment.put("Appointment_Date", spinner_dates.getSelectedItem().toString());
                     appointment.put("Appointment_Time", spinner_time.getSelectedItem().toString());
+                    ParseAnalytics.trackEventInBackground("new_appointments", dimensions);
                     appointment.saveInBackground();
 
                     new_list.add(spinner_time.getSelectedItem().toString());

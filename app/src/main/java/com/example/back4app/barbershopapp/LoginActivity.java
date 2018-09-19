@@ -15,32 +15,40 @@ import android.widget.Button;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.LogInCallback;
-import com.parse.ParseTwitterUtils;
+//import com.parse.ParseTwitterUtils;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.String;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameView;
     private EditText passwordView;
+    public CallbackManager callbackManager = CallbackManager.Factory.create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Make sure this is before calling super.onCreate
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Parse.initialize(this);
-        ParseTwitterUtils.initialize("ibtbhbOqvIyEFB1X9Ll2FXJuW", "Ae2RGBNEAHJgX5HhQBRsypQCReYZXaMp9Pn7CaO06zzWoTmZQ1");
         //ParseFacebookUtils.initialize(this);
 
         usernameView = (EditText) findViewById(R.id.username);
@@ -95,56 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), e.getMessage() + " " + getString(R.string.sorry_cant_login), true);
-                        }
-                    }
-                });
-            }
-        });
-
-        final ImageView twitter_login_button = findViewById(R.id.twitter_button);
-        twitter_login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Setting up a progress dialog
-                final ProgressDialog dlg = new ProgressDialog(LoginActivity.this, R.style.AlertDialogTheme);
-                dlg.setTitle(getString(R.string.wait));
-                dlg.setMessage(getString(R.string.logging));
-                dlg.show();
-
-                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
-                    @Override
-                    public void done(final ParseUser user, ParseException err) {
-                        if (err != null) {
-                            dlg.dismiss();
-                            ParseUser.logOut();
-                            Toast.makeText(LoginActivity.this, "hey", Toast.LENGTH_LONG).show();
-                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
-                        }
-                        if (user == null) {
-                            dlg.dismiss();
-                            ParseUser.logOut();
-                            Toast.makeText(LoginActivity.this, "hey1", Toast.LENGTH_LONG).show();
-                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
-                        } else if (user.isNew()) {
-                            dlg.dismiss();
-
-                            user.setUsername(ParseTwitterUtils.getTwitter().getScreenName());
-                            user.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (null == e) {
-                                        alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
-                                    } else {
-                                        ParseUser.logOut();
-                                        Toast.makeText(LoginActivity.this, "hey2", Toast.LENGTH_LONG).show();
-                                        alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
-                                    }
-                                }
-                            });
-                        } else {
-                            dlg.dismiss();
-                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
                         }
                     }
                 });
@@ -273,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        alertDisplayer("First Time Login!", "Welcome!", false);
+                        alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
                     }
                 });
             }
@@ -317,8 +275,8 @@ public class LoginActivity extends AppCompatActivity {
 
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }*/
 
     @Override
