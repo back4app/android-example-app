@@ -2,7 +2,6 @@ package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -61,7 +60,7 @@ public class Tab3Contact extends Fragment {
                     validationError = true;
                     error_array.add(getString(R.string.name));
                 }
-                if (isEmpty(email)) {
+                if (isEmpty(email) ) {
                     numberOfErros++;
                     validationError = true;
                     error_array.add(getString(R.string.email));

@@ -1,7 +1,6 @@
 package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -92,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                     validationError = true;
                     error_array.add(getString(R.string.username));
                 }
-                if (isEmpty(emailView)) {
+                if (isEmpty(emailView)){
                     numberOfErros++;
                     validationError = true;
                     error_array.add(getString(R.string.email));
@@ -142,6 +140,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (validationError) {
+                    Toast.makeText(RegisterActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(!isEmailValid(emailView.getText().toString())){
+                    validationErrorMessage.append(getString(R.string.invalid_email));
                     Toast.makeText(RegisterActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -209,6 +213,10 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    private boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean isMatching(EditText text1, EditText text2){

@@ -1,7 +1,6 @@
 package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -192,6 +191,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
 
+                if(!isEmailValid(emailView.getText().toString())){
+                    validationErrorMessage.append(getString(R.string.invalid_email));
+                    Toast.makeText(EditProfileActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 //Setting up a progress dialog
                 final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(R.string.wait);
@@ -321,6 +326,10 @@ public class EditProfileActivity extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+    private boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void alertDisplayer(String title,String message, final boolean error){

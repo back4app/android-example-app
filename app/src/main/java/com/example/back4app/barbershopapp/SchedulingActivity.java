@@ -1,7 +1,6 @@
 package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,7 +36,8 @@ public class SchedulingActivity extends AppCompatActivity {
     List<String> dates_list = new ArrayList<>();
     List<String> time_list = new ArrayList<>();
     ParseObject alreadyScheduled;
-    List<String> new_list = new ArrayList<>();
+    List<String> alreadyScheduled_list = new ArrayList<>();
+    List<String> times = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,8 +169,9 @@ public class SchedulingActivity extends AppCompatActivity {
                             if (e == null && professionals_schedule_info.size() > 0) {
                                 professionals_schedule_objects.addAll(professionals_schedule_info);
 
-                                for(int j = 0; j < professionals_schedule_info.size(); j++){
-                                    spinner_dates_adapter.add(professionals_schedule_info.get(j).get("Date").toString());
+                                for(int i = 0; i < professionals_schedule_info.size(); i++){
+                                    if(!professionals_schedule_info.get(i).getBoolean("Full"))
+                                        spinner_dates_adapter.add(professionals_schedule_info.get(i).get("Date").toString());
                                 }
 
                                 spinner_dates_adapter.notifyDataSetChanged();
@@ -197,25 +198,24 @@ public class SchedulingActivity extends AppCompatActivity {
                     time_list.add(getString(R.string.select_time));
                     spinner_time_adapter.notifyDataSetChanged();
 
-                    new_list.clear();
+                    alreadyScheduled_list.clear();
 
                     for(int i = 0; i < professionals_schedule_objects.size(); i++) {
                         if(professionals_schedule_objects.get(i).getString("Date").equals(selected_date)){
 
                             alreadyScheduled = professionals_schedule_objects.get(i);
                             if(alreadyScheduled.getList("Already_Scheduled") != null)
-                                new_list = alreadyScheduled.getList("Already_Scheduled");
+                                alreadyScheduled_list = alreadyScheduled.getList("Already_Scheduled");
 
-                            List<String> times = new ArrayList<>();
                             times = professionals_schedule_objects.get(i).getList("Times");
                             boolean scheduled;
 
 
-                            if(new_list.size() > 0) {
+                            if(alreadyScheduled_list.size() > 0) {
                                 for (i = 0; i < times.size(); i++) {
                                     scheduled = false;
-                                    for (int j = 0; j < new_list.size(); j++)
-                                        if (times.get(i).equals(new_list.get(j))) {
+                                    for (int j = 0; j < alreadyScheduled_list.size(); j++)
+                                        if (times.get(i).equals(alreadyScheduled_list.get(j))) {
                                             scheduled = true;
                                             break;
                                         }
@@ -317,8 +317,12 @@ public class SchedulingActivity extends AppCompatActivity {
                     ParseAnalytics.trackEventInBackground("new_appointments", dimensions);
                     appointment.saveInBackground();
 
-                    new_list.add(spinner_time.getSelectedItem().toString());
-                    alreadyScheduled.put("Already_Scheduled", new_list);
+                    alreadyScheduled_list.add(spinner_time.getSelectedItem().toString());
+                    alreadyScheduled.put("Already_Scheduled", alreadyScheduled_list);
+
+                    if (alreadyScheduled_list.size() == times.size())
+                        alreadyScheduled.put("Full", true);
+
                     alreadyScheduled.saveInBackground();
                     alertDisplayer(getString(R.string.scheduled_appointment), getString(R.string.checkout_appointment), spinner_service.getSelectedItem().toString(), spinner_professionals.getSelectedItem().toString(), spinner_dates.getSelectedItem().toString(), spinner_time.getSelectedItem().toString());
                 }

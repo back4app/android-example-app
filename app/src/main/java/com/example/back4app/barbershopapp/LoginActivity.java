@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                 Button mConfirm = (Button) mView.findViewById(R.id.confirm);
                 Button mCancel = (Button) mView.findViewById(R.id.cancel);
 
+
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -156,6 +157,12 @@ public class LoginActivity extends AppCompatActivity {
                 mConfirm.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
+
+                        if(!isEmailValid(mEmail.getText().toString())){
+                            Toast.makeText(LoginActivity.this, getString(R.string.invalid_email), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         if(!mEmail.getText().toString().isEmpty()){
                             final String email = mEmail.getText().toString();
                             ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -211,6 +218,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    private boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     /*private void getUserDetailFromFB(){

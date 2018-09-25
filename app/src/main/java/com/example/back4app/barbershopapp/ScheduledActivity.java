@@ -1,7 +1,6 @@
 package com.example.back4app.barbershopapp;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -218,6 +217,10 @@ public class ScheduledActivity extends AppCompatActivity {
                             alreadyScheduled = professionals_schedule_info.get(0).getList("Already_Scheduled");
                             alreadyScheduled.remove(time);
                             professionals_schedule_info.get(0).put("Already_Scheduled", alreadyScheduled);
+
+                            if(professionals_schedule_info.get(0).getBoolean("Full"))
+                                professionals_schedule_info.get(0).put("Full", false);
+
                             professionals_schedule_info.get(0).saveInBackground();
                         } else {
                             Log.d(":(", "Error");
