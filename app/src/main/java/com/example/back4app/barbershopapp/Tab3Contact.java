@@ -29,8 +29,6 @@ public class Tab3Contact extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_contact, container, false);
 
-        Parse.initialize(getActivity());
-
         final EditText name = (EditText) rootView.findViewById(R.id.name_input);
         final EditText email = (EditText) rootView.findViewById(R.id.email_input);
         final EditText message = (EditText) rootView.findViewById(R.id.message_input);

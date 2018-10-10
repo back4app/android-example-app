@@ -43,7 +43,6 @@ public class SchedulingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scheduling);
-        Parse.initialize(this);
 
         final TextView price_textview = (TextView) findViewById(R.id.price);
         final List<ParseObject> services_objects = new ArrayList<>();

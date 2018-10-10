@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Parse.initialize(this);
         //ParseFacebookUtils.initialize(this);
 
         usernameView = (EditText) findViewById(R.id.username);
