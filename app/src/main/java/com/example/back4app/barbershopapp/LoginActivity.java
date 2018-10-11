@@ -22,13 +22,15 @@ import com.facebook.GraphResponse;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
+//import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.LogInCallback;
 //import com.parse.ParseTwitterUtils;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SaveCallback;
+import com.parse.facebook.ParseFacebookUtils;
+import com.parse.twitter.ParseTwitterUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,13 +44,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameView;
     private EditText passwordView;
-    public CallbackManager callbackManager = CallbackManager.Factory.create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //ParseFacebookUtils.initialize(this);
 
         usernameView = (EditText) findViewById(R.id.username);
         passwordView = (EditText) findViewById(R.id.password);
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /*final ImageView facebook_button = findViewById(R.id.facebook_button);
+        final ImageView facebook_button = findViewById(R.id.facebook_button);
         facebook_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +135,44 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             }
-        });*/
+        });
+
+        final ImageView twitter_button = findViewById(R.id.twitter_button);
+        twitter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
+
+                    @Override
+                    public void done(final ParseUser user, ParseException err) {
+                        if (err != null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
+                        }
+                        if (user == null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
+                        } else if (user.isNew()) {
+                            user.setUsername(ParseTwitterUtils.getTwitter().getScreenName());
+                            user.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (null == e) {
+                                        alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
+                                    } else {
+                                        ParseUser.logOut();
+                                        alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
+                                    }
+                                }
+                            });
+                        } else {
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
+                        }
+                    }
+                });
+
+            }
+        });
 
         final TextView reset_password = findViewById(R.id.reset_password);
         reset_password.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +260,7 @@ public class LoginActivity extends AppCompatActivity {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    /*private void getUserDetailFromFB(){
+    private void getUserDetailFromFB(){
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -252,7 +289,7 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields","name,email");
         request.setParameters(parameters);
         request.executeAsync();
-    }*/
+    }
 
     private void alertDisplayer(String title, String message, final boolean error) {
 
@@ -278,16 +315,19 @@ public class LoginActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
+                else{
+                    dialog.cancel();
+                }
             }
         });
 
     }
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-    }*/
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onBackPressed() {
