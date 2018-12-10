@@ -32,8 +32,8 @@
                 <ImageView
                     android:id="@+id/location"
                     android:src="@drawable/btn_location"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:layout_width="160dp"
                     android:layout_height="160dp" />
 
@@ -55,8 +55,8 @@
                 <ImageView
                     android:id="@+id/deals"
                     android:src="@drawable/btn_deals"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:layout_width="160dp"
                     android:layout_height="160dp" />
             </LinearLayout>

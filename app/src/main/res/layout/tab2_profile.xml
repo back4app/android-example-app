@@ -77,8 +77,8 @@
                 <ImageView
                     android:id="@+id/history"
                     android:src="@drawable/btn_history"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:layout_width="160dp"
                     android:layout_height="160dp" />
             </LinearLayout>
