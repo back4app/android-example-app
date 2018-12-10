@@ -301,10 +301,12 @@ public class SchedulingActivity extends AppCompatActivity {
                     Toast.makeText(SchedulingActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                Map<String, String> dimensions = new HashMap<String, String>();
-                // Define ranges to bucket data points into meaningful segments
-                dimensions.put("service", spinner_service.getSelectedItem().toString());
-                dimensions.put("professional", spinner_professionals.getSelectedItem().toString());
+
+                    Map<String, String> dimensions = new HashMap<String, String>();
+                    // Define ranges to bucket data points into meaningful segments
+                    dimensions.put("service", spinner_service.getSelectedItem().toString());
+                    dimensions.put("professional", spinner_professionals.getSelectedItem().toString());
+                    ParseAnalytics.trackEventInBackground("new_appointments", dimensions);
 
 
                     final ParseObject appointment = new ParseObject("Appointments");
@@ -313,7 +315,6 @@ public class SchedulingActivity extends AppCompatActivity {
                     appointment.put("Appointment_Professional", spinner_professionals.getSelectedItem().toString());
                     appointment.put("Appointment_Date", spinner_dates.getSelectedItem().toString());
                     appointment.put("Appointment_Time", spinner_time.getSelectedItem().toString());
-                    ParseAnalytics.trackEventInBackground("new_appointments", dimensions);
                     appointment.saveInBackground();
 
                     alreadyScheduled_list.add(spinner_time.getSelectedItem().toString());

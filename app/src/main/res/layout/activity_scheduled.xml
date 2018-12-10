@@ -68,7 +68,6 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_regular"
-            android:popupBackground="#A9A9A9"
             android:layout_height="wrap_content" />
 
         <Spinner
@@ -81,7 +80,6 @@
             android:layout_marginRight="27dp"
             android:layout_marginStart="27dp"
             android:layout_marginBottom="10dp"
-            android:popupBackground="#A9A9A9"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_regular"
             android:layout_height="wrap_content" />
@@ -266,12 +264,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
-            android:layout_marginStart="27dp"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -281,6 +276,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="14sp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
                 android:textColor="@color/black"
                 android:background="@drawable/button_border"
                 android:fontFamily="@font/roboto_medium"
@@ -294,6 +291,8 @@
                 android:textSize="14sp"
                 android:layout_marginLeft="21dp"
                 android:layout_marginStart="21dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginRight="35dp"
                 android:textColor="@color/white"
                 android:background="@drawable/button_black"
                 android:fontFamily="@font/roboto_medium"

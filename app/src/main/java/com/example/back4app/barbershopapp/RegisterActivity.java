@@ -17,15 +17,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+import com.parse.facebook.ParseFacebookUtils;
+import com.parse.twitter.ParseTwitterUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -184,16 +195,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         dlg.dismiss();
                                         if (e == null) {
                                             ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false);
+                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false, false);
                                         } else {
                                             ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true);
+                                            alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, false);
                                         }
                                     }
                                 });
                             }
                             else{
-                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true);
+                                alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, false);
                             }
 
                         }
@@ -202,6 +213,71 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+            }
+        });
+
+        final ImageView twitter_button = findViewById(R.id.twitter_button);
+        twitter_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseTwitterUtils.logIn(RegisterActivity.this, new LogInCallback() {
+
+                    @Override
+                    public void done(final ParseUser user, ParseException err) {
+                        if (err != null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
+                        }
+                        if (user == null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
+                        } else if (user.isNew()) {
+                            user.setUsername(ParseTwitterUtils.getTwitter().getScreenName());
+                            user.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (null == e) {
+                                        alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, false);
+                                    } else {
+                                        ParseUser.logOut();
+                                        alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
+                                    }
+                                }
+                            });
+                        } else {
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, true);
+                        }
+                    }
+                });
+
+            }
+        });
+
+        final ImageView facebook_button = findViewById(R.id.facebook_button);
+        facebook_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Collection<String> permissions = Arrays.asList("public_profile", "email");
+
+                ParseFacebookUtils.logInWithReadPermissionsInBackground(RegisterActivity.this, permissions, new LogInCallback() {
+
+                    @Override
+                    public void done(ParseUser user, ParseException err) {
+                        if (err != null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
+                        }
+                        if (user == null) {
+                            ParseUser.logOut();
+                            alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
+                        } else if (user.isNew()) {
+                            getUserDetailFromFB();
+                        } else {
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, false);
+                        }
+                    }
+                });
             }
         });
     }
@@ -227,7 +303,38 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void alertDisplayer(String title,String message, final boolean error){
+    private void getUserDetailFromFB(){
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                ParseUser user = ParseUser.getCurrentUser();
+                try{
+                    user.setUsername(object.getString("name"));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
+                try{
+                    user.setEmail(object.getString("email"));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, false);
+                    }
+                });
+            }
+
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields","name,email");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    private void alertDisplayer(String title,String message, final boolean error, final boolean alreadyAnUser){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegisterActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_default, null);
         final TextView title_textview = (TextView) mView.findViewById(R.id.title);
@@ -245,22 +352,33 @@ public class RegisterActivity extends AppCompatActivity {
         mConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (!error) {
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            if (!error) {
+                if(alreadyAnUser) {
+                    Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            dialog.cancel();
             }
         });
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data){
-        if(resCode == RESULT_OK){
-            if(reqCode == 1){
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK) {
+            if (requestCode == 1) {
                 photo.setImageURI(data.getData());
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+                ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
             }
         }
     }
+
 
     @Override
     public void onBackPressed() {

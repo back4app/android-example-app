@@ -53,7 +53,6 @@ public class Tab1Barber extends Fragment{
                 startActivity(intent);
             }
         });
-
         return rootView;
     }
 }

@@ -349,11 +349,12 @@ public class EditProfileActivity extends AppCompatActivity {
         mConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (!error) {
-                    Intent intent = new Intent(EditProfileActivity.this, MenuActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
+            if (!error) {
+                Intent intent = new Intent(EditProfileActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            dialog.cancel();
             }
         });
     }
