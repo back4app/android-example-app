@@ -123,12 +123,11 @@ public class LoginActivity extends AppCompatActivity {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
                         }
-                        if (user == null) {
+                        else if (user == null) {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
                         } else if (user.isNew()) {
                             getUserDetailFromFB();
-                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
                         } else {
                             alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false);
                         }
@@ -149,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
                         }
-                        if (user == null) {
+                        else if (user == null) {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true);
                         } else if (user.isNew()) {

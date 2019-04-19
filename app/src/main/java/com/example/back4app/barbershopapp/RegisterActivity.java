@@ -90,28 +90,27 @@ public class RegisterActivity extends AppCompatActivity {
                 //Validating the log in data
                 boolean validationError = false;
 
-                int numberOfErros = 0;
+                int numberOfErrors = 0;
 
                 ArrayList error_array = new ArrayList();
                 StringBuilder validationErrorMessage = new StringBuilder("");
 
                 if (isEmpty(usernameView)) {
-                    numberOfErros++;
+                    numberOfErrors++;
                     validationError = true;
                     error_array.add(getString(R.string.username));
                 }
                 if (isEmpty(emailView)){
-                    numberOfErros++;
-                    validationError = true;
+                    numberOfErrors++;                  validationError = true;
                     error_array.add(getString(R.string.email));
                 }
                 if (isEmpty(passwordView)) {
-                    numberOfErros++;
+                    numberOfErrors++;
                     validationError = true;
                     error_array.add(getString(R.string.password));
                 }
                 if (isEmpty(passwordAgainView)) {
-                    numberOfErros++;
+                    numberOfErrors++;
                     validationError = true;
                     error_array.add(getString(R.string.password_again));
                 }
@@ -120,24 +119,21 @@ public class RegisterActivity extends AppCompatActivity {
 
                     validationErrorMessage.append(getString(R.string.please_complete) + " ");
 
-                    StringBuilder errors = new StringBuilder("");
-
-                    if (numberOfErros == 1) {
+                    if (numberOfErrors == 1) {
                         validationErrorMessage.append(getString(R.string.required_field) + " ");
                     } else {
                         validationErrorMessage.append(getString(R.string.required_fields) + " ");
                     }
 
-                    for (int i = 1; i <= error_array.size(); i++) {
-                        if (i != 1 && i != error_array.size()) {
-                            errors.append(", ");
-                        } else if (i != 1) {
-                            errors.append(" " + getString(R.string.and) + " ");
+                    for (int i = 1; i <= numberOfErrors; i++) {
+                        validationErrorMessage.append(error_array.get(i - 1).toString());
+                        if (i < numberOfErrors - 1) {
+                            validationErrorMessage.append(", ");
+                        } else if (i == numberOfErrors - 1) {
+                            validationErrorMessage.append(" " + getString(R.string.and) + " ");
                         }
-                        errors.append(error_array.get(i - 1).toString());
                     }
 
-                    validationErrorMessage.append(errors);
                     validationErrorMessage.append(".");
 
                 }
@@ -178,9 +174,12 @@ public class RegisterActivity extends AppCompatActivity {
                     byte[] byteArray = stream.toByteArray();
 
                     final ParseFile file = new ParseFile(usernameView.getText().toString() +".png", byteArray);
-                    file.saveInBackground(new SaveCallback() {
+                    file.saveInBackground(
+
+                            new SaveCallback() {
                         public void done(ParseException e) {
                             // If successful add file to user and signUpInBackground
+                            dlg.cancel();
                             if(null == e){
                                 // Sign up with Parse
                                 ParseUser user = new ParseUser();
@@ -192,10 +191,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.signUpInBackground(new SignUpCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        dlg.dismiss();
                                         if (e == null) {
                                             ParseUser.logOut();
-                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false, false);
+                                            alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.please_verify), false,false);
                                         } else {
                                             ParseUser.logOut();
                                             alertDisplayer(getString(R.string.message_unsuccessful_creation), getString(R.string.not_created) + " :" + e.getMessage(), true, false);
@@ -268,13 +266,13 @@ public class RegisterActivity extends AppCompatActivity {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
                         }
-                        if (user == null) {
+                        else if (user == null) {
                             ParseUser.logOut();
                             alertDisplayer(getString(R.string.unsuccessful_login), getString(R.string.sorry_cant_login), true, false);
                         } else if (user.isNew()) {
                             getUserDetailFromFB();
                         } else {
-                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, false);
+                            alertDisplayer(getString(R.string.successful_login), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, true);
                         }
                     }
                 });
@@ -321,7 +319,7 @@ public class RegisterActivity extends AppCompatActivity {
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, false);
+                        alertDisplayer(getString(R.string.message_successful_creation), getString(R.string.welcome) + " " + ParseUser.getCurrentUser().get("username").toString() + "!", false, true);
                     }
                 });
             }
