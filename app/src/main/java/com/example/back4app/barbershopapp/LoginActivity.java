@@ -248,11 +248,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmpty(EditText text) {
-        if (text.getText().toString().trim().length() > 0) {
+        if (text.getText().toString().trim().length() > 0)
             return false;
-        } else {
-            return true;
-        }
+
+        return true;
+
     }
 
     private boolean isEmailValid(CharSequence email) {

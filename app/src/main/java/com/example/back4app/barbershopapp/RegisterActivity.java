@@ -37,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -152,6 +153,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(!isEmailValid(emailView.getText().toString())){
                     validationErrorMessage.append(getString(R.string.invalid_email));
+                    Toast.makeText(RegisterActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(!isPasswordValid(passwordView.getText().toString())){
+                    validationErrorMessage.append(getString(R.string.rewrite_password));
                     Toast.makeText(RegisterActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -283,9 +290,9 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isEmpty(EditText text) {
         if (text.getText().toString().trim().length() > 0) {
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     private boolean isEmailValid(CharSequence email) {
@@ -296,9 +303,25 @@ public class RegisterActivity extends AppCompatActivity {
         if(text1.getText().toString().equals(text2.getText().toString())){
             return true;
         }
-        else{
+
+        return false;
+    }
+
+    private boolean isPasswordValid(String password){
+
+        if(password.length() < 7)
             return false;
-        }
+
+
+        String n = ".*[0-9].*";
+        String capital = ".*[A-Z].*";
+        String a = ".*[a-z].*";
+
+        if(!(password.matches(n) && password.matches(a) && password.matches(capital)))
+            return false;
+
+        return true;
+
     }
 
     private void getUserDetailFromFB(){

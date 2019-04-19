@@ -196,6 +196,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
 
+                if(!isPasswordValid(passwordView.getText().toString())){
+                    validationErrorMessage.append(getString(R.string.rewrite_password));
+                    Toast.makeText(EditProfileActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 //Setting up a progress dialog
                 final ProgressDialog dlg = new ProgressDialog(EditProfileActivity.this, R.style.AlertDialogTheme);
                 dlg.setTitle(R.string.wait);
@@ -311,24 +317,41 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private boolean isEmpty(EditText text) {
-        if (text.getText().toString().trim().length() > 0) {
+        if (text.getText().toString().trim().length() > 0)
             return false;
-        } else {
-            return true;
-        }
+
+        return true;
+
     }
 
     private boolean isMatching(EditText text1, EditText text2){
-        if(text1.getText().toString().equals(text2.getText().toString())){
+        if(text1.getText().toString().equals(text2.getText().toString()))
             return true;
-        }
-        else{
-            return false;
-        }
+
+
+        return false;
+
     }
 
     private boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean isPasswordValid(String password){
+
+        if(password.length() < 7)
+            return false;
+
+
+        String n = ".*[0-9].*";
+        String capital = ".*[A-Z].*";
+        String a = ".*[a-z].*";
+
+        if(!(password.matches(n) && password.matches(a) && password.matches(capital)))
+            return false;
+
+        return true;
+
     }
 
     private void alertDisplayer(String title,String message, final boolean error){

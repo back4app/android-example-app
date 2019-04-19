@@ -138,11 +138,11 @@ public class Tab3Contact extends Fragment {
     }
 
     private boolean isEmpty(EditText text) {
-        if (text.getText().toString().trim().length() > 0) {
+        if (text.getText().toString().trim().length() > 0)
             return false;
-        } else {
-            return true;
-        }
+
+        return true;
+
     }
 
     boolean isEmailValid(CharSequence email) {

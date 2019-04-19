@@ -79,6 +79,7 @@
     <string name="required_fields">the required fields</string>
     <string name="not_matching_passwords">Insert matching passwords.</string>
     <string name="choose_photo">Choose your profile picture</string>
+    <string name="rewrite_password">Enter a valid password. It must have letters and numbers, at least 7 digits and at least one capital letter.</string>
 
 
     <!-- Scheduling and scheduled -->
