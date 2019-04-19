@@ -121,6 +121,7 @@
                         android:layout_marginRight="16dp"
                         android:hint="@string/username_"
                         android:textColorHint="#696969"
+                        android:digits="0123456789qwertzuiopasdfghjklyxcvbnm_.-QWERTYUIOPASDFGHJKLZXCVBNM"
                         android:textSize="16sp"
                         android:textColor="#61512a"
                         android:fontFamily="@font/roboto_regular" />
